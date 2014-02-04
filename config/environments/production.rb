@@ -79,6 +79,20 @@ R2::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
   
   # for Devise
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' } # must be changed
-  
+  config.action_mailer.default_url_options = { :host => 'r2system.herokuapp.com' } # must be changed
+  # メール送信機能
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.raise_delivery_errors = true
+
+  # gmail用の定義
+  config.action_mailer.smtp_settings = {
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :domain => 'localhost',
+    :authentication => :login,
+    :user_name => ENV['MAIL_USER'],
+    :password  => ENV['MAIL_PASSWORD']
+    }
+
 end
