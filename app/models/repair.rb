@@ -117,5 +117,37 @@ class Repair < ActiveRecord::Base
   def calcRunningYear
     return  ((Date.today - self.day_of_test)/365).ceil unless self.day_of_test.nil? 
   end
+  
+  
+  #請求済みかどうか(現在はフラグ的な使い方をする。何か値が入っていれば請求済み扱い)
+  def billing?
+    return self.billing_id.present?
+  end
+
+  #支払い済みかどうか(現在はフラグ的な使い方をする。何か値が入っていれば請求済み扱い)
+  def payment?
+    return self.payment_id.present?    
+  end
+  
+ ######################################################################
+ # (V) 仮設こーなー。
+ ######################################################################
+  #仮設。(先に大まかなロジック作成のため、ステータスの値をここに置く。後でenginestatusと同じ感じに変える予定…)
+  def self.of_payment
+    return 1
+  end
+
+  def self.of_billing
+    return 1
+  end
+
+  def self.of_not_payment
+    return nil
+  end
+
+  def self.of_not_billing
+    return nil
+  end
+
 
 end

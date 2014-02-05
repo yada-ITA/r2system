@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140131999999) do
+ActiveRecord::Schema.define(version: 20140205002619) do
 
   create_table "businessstatuses", force: true do |t|
     t.string   "name"
@@ -109,6 +109,10 @@ ActiveRecord::Schema.define(version: 20140131999999) do
     t.string   "checkpaper"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "billing_id"
+    t.date     "billing_date"
+    t.integer  "payment_id"
+    t.date     "payment_date"
   end
 
   create_table "users", force: true do |t|

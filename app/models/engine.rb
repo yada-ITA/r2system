@@ -138,7 +138,7 @@ class Engine < ActiveRecord::Base
   # 受領前状態かどうか？
   def before_arrive?
     # エンジン状態マスタの id を直接使うのではなく、エンジン状態オブジェクトで
-    # 比較するようにしました。
+    # 比較するようにしました。←いったん、idを直接扱う形に変更。
     status.id == Enginestatus.of_before_arrive.id
   end
 

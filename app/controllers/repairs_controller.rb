@@ -250,12 +250,73 @@ class RepairsController < ApplicationController
   
   #未請求のリストを表示する
   def notbilling
-    @repairs = Repair.all.paginate(page: params[:page], per_page: 10)
+    #エンジンの条件を設定する（エンジンに紐付く整備情報を取得するため）
+    arel_engine = Engine.arel_table
+    cond = []
+    # エンジンステータス
+    cond.push(arel_engine[:enginestatus_id].eq(Enginestatus.of_finished_repair.id)
+             .or(arel_engine[:enginestatus_id].eq(Enginestatus.of_before_shipping.id))
+             .or(arel_engine[:enginestatus_id].eq( Enginestatus.of_after_shipping.id)))
+
+    #Yes本社の場合全件表示、それ以外の場合は自社の管轄のエンジンを対象とする。
+    unless current_user.yesOffice?
+      cond.push(arel_engine[:company_id].eq current_user.company_id)
+    end
+
+    #未請求の情報のみ表示する
+    arel_repair = Repair.arel_table
+    cond.push(arel_repair[:billing_id].eq Repair.of_not_billing)
+
+    @repairs = Repair.includes(:engine).where(cond.reduce(&:and)).order(:updated_at).reverse_order.paginate(page: params[:page], per_page: 10)
   end
 
-  #未支払いのリストを表示する
+  #未払いのリストを表示する
   def notpayment
-    @repairs = Repair.all.paginate(page: params[:page], per_page: 10)
+        #エンジンの条件を設定する（エンジンに紐付く整備情報を取得するため）
+    arel_engine = Engine.arel_table
+    cond = []
+    # エンジンステータス
+    cond.push(arel_engine[:enginestatus_id].eq(Enginestatus.of_finished_repair.id)
+             .or(arel_engine[:enginestatus_id].eq(Enginestatus.of_before_shipping.id))
+             .or(arel_engine[:enginestatus_id].eq( Enginestatus.of_after_shipping.id)))
+
+    #Yes本社の場合全件表示、それ以外の場合は自社の管轄のエンジンを対象とする。
+    unless current_user.yesOffice?
+      cond.push(arel_engine[:company_id].eq current_user.company_id)
+    end
+
+    #未払いのリストを表示する(請求済み、かつ未払いのもの)
+    arel_repair = Repair.arel_table
+    cond.push(arel_repair[:billing_id].eq Repair.of_billing)
+    cond.push(arel_repair[:payment_id].eq Repair.of_not_payment)
+
+    @repairs = Repair.includes(:engine).where(cond.reduce(&:and)).order(:updated_at).reverse_order.paginate(page: params[:page], per_page: 10)
+
+  end
+
+
+  #支払い済みのリストを表示する
+  def payment
+        #エンジンの条件を設定する（エンジンに紐付く整備情報を取得するため）
+    arel_engine = Engine.arel_table
+    cond = []
+    # エンジンステータス
+    cond.push(arel_engine[:enginestatus_id].eq(Enginestatus.of_finished_repair.id)
+             .or(arel_engine[:enginestatus_id].eq(Enginestatus.of_before_shipping.id))
+             .or(arel_engine[:enginestatus_id].eq( Enginestatus.of_after_shipping.id)))
+
+    #Yes本社の場合全件表示、それ以外の場合は自社の管轄のエンジンを対象とする。
+    unless current_user.yesOffice?
+      cond.push(arel_engine[:company_id].eq current_user.company_id)
+    end
+
+    #支払いのリストを表示する(請求済み、支払い済みのもの)
+    arel_repair = Repair.arel_table
+    cond.push(arel_repair[:billing_id].eq Repair.of_billing)
+    cond.push(arel_repair[:payment_id].eq Repair.of_payment)
+
+    @repairs = Repair.includes(:engine).where(cond.reduce(&:and)).order(:updated_at).reverse_order.paginate(page: params[:page], per_page: 10)
+
   end
 
 

@@ -1,4 +1,4 @@
-class Add20140128colsToRepairs < ActiveRecord::Migration
+class AddAcountscolsToRepairs < ActiveRecord::Migration
   def change
     add_column :repairs, :billing_id, :integer
     add_column :repairs, :billing_date, :date
