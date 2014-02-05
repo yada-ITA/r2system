@@ -214,3 +214,4 @@ ja:
     #Repair was successfully created.
     repair_updated: 整備情報を更新しました。
     #Repair was successfully updated.
+    repair_not_update: 情報の更新がありません。

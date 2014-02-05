@@ -22,6 +22,10 @@ R2::Application.routes.draw do
 
   get 'repairs/payment' => 'repairs#payment'
 
+  post 'repairs/updatePayment', :to => 'repairs#update_payment'
+
+  post 'repairs/updateBilling', :to => 'repairs#update_billing'
+
   get 'engines/index' => 'engines#index'
 
   get 'engineorders/engineInquiry' => 'engineorders#inquiry'

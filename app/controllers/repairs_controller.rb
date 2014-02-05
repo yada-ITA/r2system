@@ -4,8 +4,6 @@ class RepairsController < ApplicationController
   # GET /repairs
   # GET /repairs.json
   def index
-
-  
     # 1.初期表示（メニューなどからの遷移時）
     #    ログインユーザの会社コードのみを条件に抽出
     #    ①検索条件のクリア
@@ -199,6 +197,47 @@ class RepairsController < ApplicationController
     end
   end
 
+  #支払い済みへ情報更新
+  def update_payment
+      @repairs = Repair.update(params[:repair].keys,params[:repair].values)
+
+    update_err = false
+    @repairs.each do |repair|
+      update_err = true if repair.errors.any?
+    end
+
+    respond_to do |format|
+      unless update_err
+        format.html { redirect_to "/repairs/notpayment" , notice: t("controller_msg.repair_updated") }
+        format.json { head :no_content }
+      else
+        format.html { render "notpayment" }
+        format.json { render json: @repairs.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  #請求済みへ情報更新
+  def update_billing
+      @repairs = Repair.update(params[:repair].keys,params[:repair].values)
+
+    update_err = false
+    @repairs.each do |repair|
+     update_err = true if repair.errors.any?
+    end
+
+    respond_to do |format|
+      unless update_err
+        format.html { redirect_to "/repairs/notbilling" , notice: t("controller_msg.repair_updated") }
+        format.json { head :no_content }
+      else
+        format.html { render "notbilling" }
+        format.json { render json: @repairs.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   # GET /repairs/repairStarted/1
   def repairStarted
     set_repair
@@ -297,7 +336,7 @@ class RepairsController < ApplicationController
 
   #支払い済みのリストを表示する
   def payment
-        #エンジンの条件を設定する（エンジンに紐付く整備情報を取得するため）
+    #エンジンの条件を設定する（エンジンに紐付く整備情報を取得するため）
     arel_engine = Engine.arel_table
     cond = []
     # エンジンステータス
@@ -316,7 +355,6 @@ class RepairsController < ApplicationController
     cond.push(arel_repair[:payment_id].eq Repair.of_payment)
 
     @repairs = Repair.includes(:engine).where(cond.reduce(&:and)).order(:updated_at).reverse_order.paginate(page: params[:page], per_page: 10)
-
   end
 
 

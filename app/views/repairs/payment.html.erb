@@ -24,7 +24,7 @@
         <td><%= repair.billing_date %></td>
         <td><%= repair.payment_date %></td>
         <% if current_user.yesOffice? %>
-          <td><%= Company.find(repair.engine.company_id) %></td>
+          <td><%= Company.find(repair.engine.company_id).name  if repair.engine.present? %></td>
         <% end %>
         <td><%= repair.order_no %></td>
         <td>
