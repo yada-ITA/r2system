@@ -11,4 +11,4 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 
 script:
-  - bundle exec rake test:integration test:acceptance
+  - bundle exec rake test:acceptance TEST=test/acceptance/scenario_test
