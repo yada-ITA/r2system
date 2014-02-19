@@ -11,7 +11,7 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: ZfoTitSAXUg8ISItHf8OsdhwRU0yIy+voPMXliwBX22aEIrYp22FS2JyJPFLuzPgL1Xx2ZnRazGVA9PfSf3sg+Q3qbALLqehPYdI/llbZfYHC2nlcPkLfLaii9DiqolNdMfRaQ/qHy1vzG64rIg3ip/RKEmzS0qp+Qie+ipW0a4=
+    secure: dwq9Rr0jyK2mBo/IEqgg2LhAb8gT0zKHurtx9pJSq9FM/yNvqUVKO5tPoA2N/thQpM6lt7LFR/OzS2o7re1P3BjEUlQKpXhnumKZYpG3NUAaOAS6X/UvcadiS98bVkJAalf60XoZNGqjv6n04uscSbdVk9NmH9+ChC3X2mYOznE=
   app:
     develop2: r2develop
   run:
