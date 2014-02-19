@@ -1,14 +1,18 @@
 language: ruby
-
 rvm:
-  - 2.0.0
-
+- 2.0.0
 gemfile:
-  - Gemfile
-
+- Gemfile
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 script:
-  - bundle exec rake test:acceptance TEST=test/acceptance/scenario_test
+- bundle exec rake test:acceptance TEST=test/acceptance/scenario_test
+deploy:
+  provider: heroku
+  api_key:
+    secure: ZfoTitSAXUg8ISItHf8OsdhwRU0yIy+voPMXliwBX22aEIrYp22FS2JyJPFLuzPgL1Xx2ZnRazGVA9PfSf3sg+Q3qbALLqehPYdI/llbZfYHC2nlcPkLfLaii9DiqolNdMfRaQ/qHy1vzG64rIg3ip/RKEmzS0qp+Qie+ipW0a4=
+  app:
+    develop2: r2develop
+  run:
+  - rake db:migrate
