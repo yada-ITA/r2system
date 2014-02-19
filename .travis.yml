@@ -12,12 +12,3 @@ before_script:
 
 script:
   - bundle exec rake test:integration test:acceptance
-
-deploy:
-  provider: heroku
-  api_key:
-    secure: IV8uTfoPIAS9tDvfhv52S83nBU0dYfH66aDH8vJsq+q2NTBVCaRn56oYBF5NqWUZy/QHBikYp2Q0O57fDbGSAC519JzUsrHGGaV3Ts/xiVIVzDuB1WEZ/YYkip1bSWwVyCMM3dfDNnNztzet66O+sNPdIaubAnSunN7lTRGuTyg=
-  app:
-    develop: r2-staging
-  run:
-    - rake db:migrate
