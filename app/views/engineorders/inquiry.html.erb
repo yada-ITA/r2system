@@ -42,7 +42,10 @@
    <%= f.collection_select( :salesman_id, User.all, :id, :name, :include_blank => false ) %>
   </div>
 
-  <%= render "location", {f: f, attr_name: "install_place", location: @engineorder.install_place,disabled_info: false } %>
+  <div class="field">
+    <%= render "installplace", {f: f, orderinfo: @engineorder, disabled_info: false} %>
+  </div>
+
 
   <div class="field">
     <%= f.label :orderer %><br>

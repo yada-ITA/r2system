@@ -59,7 +59,9 @@
     <%= f.date_select :inquiry_date, :use_month_numbers => true, :disabled=> disabled_data[:inquiry_date]  %>
   </div>
 
+  <div class="field">
   <%= render "location", {f: f, attr_name: "branch", location: @engineorder.branch,:disabled_info => disabled_data[:branch] } %>
+  </div>
 
   <div class="field">
     <%= f.label :salesman_id %><br>
@@ -100,7 +102,10 @@
     <%= f.date_select :order_date, :use_month_numbers => true, :disabled=> disabled_data[:order_date]  %>
   </div>
 
-  <%= render "location", {f: f, attr_name: "install_place", location: @engineorder.install_place, :disabled_info => disabled_data[:install_place] } %>
+  <div class="field">
+    <%= render "installplace", {f: f, orderinfo: @engineorder, :disabled_info => disabled_data[:install_place]} %>
+  </div>
+
 
   <div class="field">
     <%= f.label :orderer %><br>

@@ -8,7 +8,7 @@ class Engineorder < ActiveRecord::Base
   belongs_to :new_engine, :class_name => 'Engine' 
 
   belongs_to :branch, :class_name => 'Company' 
-  belongs_to :install_place,   :class_name => 'Company' 
+  belongs_to :install_place,   :class_name => 'Installplace' 
   belongs_to :sending_place,   :class_name => 'Company' 
   belongs_to :returning_place, :class_name => 'Company' 
 
@@ -26,6 +26,8 @@ class Engineorder < ActiveRecord::Base
 
   #旧エンジンは必ず流通登録に必要なので、必須項目とする。
   validates :old_engine_id, presence: true
+
+accepts_nested_attributes_for :install_place
 
   # 新エンジンをセットする
   # 独自の setNewEngine メソッドではなく、そのまま order.new_engine = engine と

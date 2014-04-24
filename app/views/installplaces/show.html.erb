@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @installplace.name %>
+</p>
+
+<p>
+  <strong>Postcode:</strong>
+  <%= @installplace.postcode %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @installplace.address %>
+</p>
+
+<p>
+  <strong>Phone no:</strong>
+  <%= @installplace.phone_no %>
+</p>
+
+<p>
+  <strong>Destination name:</strong>
+  <%= @installplace.destination_name %>
+</p>
+
+<%= link_to 'Edit', edit_installplace_path(@installplace) %> |
+<%= link_to 'Back', installplaces_path %>

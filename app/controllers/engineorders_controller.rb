@@ -28,6 +28,7 @@ class EngineordersController < ApplicationController
   # GET /engineorders/new
   def new
     @engineorder = Engineorder.new
+    @engineorder.install_place = Installplace.new
   end
 
   # GET /engineorders/1/edit
@@ -66,7 +67,11 @@ class EngineordersController < ApplicationController
       @engineorder.old_engine.status = Enginestatus.of_about_to_return
       @engineorder.old_engine.save
     end
-    
+
+@engineorder.install_place = Installplace.new(engineorder_params.install_place)
+@engineorder.install_place.save
+
+
     respond_to do |format|
       if @engineorder.save
         format.html { redirect_to @engineorder, notice: t('controller_msg.engineorder_created') }
@@ -124,6 +129,13 @@ class EngineordersController < ApplicationController
         end
       else
         @engineorder = Engineorder.new
+      end
+      if params[:install_place_id].nil?
+         @engineorder.install_place = Installplace.new
+puts"newnewnewnewnewnewnewnewnewnewnewnewn"
+      else
+         @engineorder.install_place = Installplace.find(pramas[:install_place_id])
+puts"**********************"
       end
     end
   end
@@ -228,7 +240,7 @@ class EngineordersController < ApplicationController
 
   private
   #流通ステータスをセットする。判定はボタンに表示されているラベルで、どの画面で押されたものかを見て
-  #決定している。(ボタンのラベルはprams[:commit]でラベルを取得可能)
+  #決定している。(ボタンのラベルはparams[:commit]でラベルを取得可能)
   # t('xxxxxx')は、congfg/locales/xxx.ja.ymlから名称を取得するメソッド。
   def setBusinessstatus
     # ここの if 文の並びも排他的な条件なので、case 文に変更しました。
@@ -288,13 +300,18 @@ class EngineordersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_engineorder
     @engineorder = Engineorder.find(params[:id])
+      if @engineorder.install_place_id.blank?
+         @engineorder.install_place = Installplace.new
+      else
+         @engineorder.install_place = Installplace.find(@engineorder.install_place_id)
+      end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def engineorder_params
     params.require(:engineorder).permit(
       :issue_no, :inquiry_date, :registered_user_id, :updated_user_id,
-      :branch_id, :salesman_id, :install_place_id, :orderer, :machine_no,
+      :branch_id, :salesman_id, :install_place_id, :install_place,:installplace, :orderer, :machine_no,
       :time_of_running, :change_comment, :order_date, :sending_place_id,
       :sending_comment, :desirable_delivery_date, :businessstatus_id,
       :new_engine_id, :old_engine_id, :old_engine, :new_engine,
