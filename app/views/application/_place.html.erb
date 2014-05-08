@@ -1,6 +1,6 @@
-<%= f.label :install_place_id %><br>
+<%= f.label (attr_name + "_id").to_sym %><br>
   <% unless orderinfo.nil? %>
-  <%= fields_for orderinfo.install_place do |ip| %>
+  <%= fields_for attr_data do |ip| %>
   <table>
     <tr>
       <td>(郵便番号)<%= ip.text_field  :postcode , :size => 8 ,:disabled => disabled_info %></td>

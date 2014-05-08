@@ -1,6 +1,6 @@
 R2::Application.routes.draw do
 
-  resources :installplaces
+  resources :places
 
   get 'repairs/new/:engine_id' => 'repairs#new'
 

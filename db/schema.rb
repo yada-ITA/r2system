@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20140424073808) do
     t.datetime "updated_at"
   end
 
-  create_table "installplaces", force: true do |t|
+  create_table "places", force: true do |t|
     t.string   "name"
     t.string   "postcode"
     t.string   "address"

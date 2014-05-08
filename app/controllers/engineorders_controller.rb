@@ -28,7 +28,7 @@ class EngineordersController < ApplicationController
   # GET /engineorders/new
   def new
     @engineorder = Engineorder.new
-    @engineorder.install_place = Installplace.new
+    @engineorder.install_place = Place.new
   end
 
   # GET /engineorders/1/edit
@@ -68,7 +68,7 @@ class EngineordersController < ApplicationController
       @engineorder.old_engine.save
     end
 
-@engineorder.install_place = Installplace.new(engineorder_params.install_place)
+@engineorder.install_place = Place.new(engineorder_params.install_place)
 @engineorder.install_place.save
 
 
@@ -86,6 +86,21 @@ class EngineordersController < ApplicationController
   # PATCH/PUT /engineorders/1
   # PATCH/PUT /engineorders/1.json
   def update
+    # 入力されたエンジンが未登録の場合、事前に登録する
+    #   1. 新規エンジン
+    #     管轄がユーザの会社である "完成品" 状態のエンジンとして登録
+    #   2. 返却エンジン
+    #     未対応
+    ensure_existence_of_engine(:new_engine, current_user.company, Enginestatus.of_finished_repair)
+
+    # すでに新エンジンが登録されていて、入力された新エンジンが現在の新エンジン
+    # と異なる場合、一旦引当の取消が必要と判断する
+    if new_engine = @engineorder.new_engine
+      unless new_engine.id == engineorder_params[:new_engine_id]
+        @engineorder.undo_allocation
+      end
+    end
+
     # 流通ステータスをセットする。(privateメソッド)
     setBusinessstatus
 
@@ -131,10 +146,10 @@ class EngineordersController < ApplicationController
         @engineorder = Engineorder.new
       end
       if params[:install_place_id].nil?
-         @engineorder.install_place = Installplace.new
+         @engineorder.install_place = Place.new
 puts"newnewnewnewnewnewnewnewnewnewnewnewn"
       else
-         @engineorder.install_place = Installplace.find(pramas[:install_place_id])
+         @engineorder.install_place = Place.find(pramas[:install_place_id])
 puts"**********************"
       end
     end
@@ -297,13 +312,24 @@ puts"**********************"
     end
   end
 
+  def ensure_existence_of_engine(assoc_name, company, status)
+    if attrs = params[:engineorder].delete("#{assoc_name}_attributes".intern)
+      params[:engineorder]["#{assoc_name}_id".intern] =
+        Engine.find_or_create_by(engine_model_name: attrs[:engine_model_name],
+                                 serialno: attrs[:serialno]) { |engine|
+          engine.status = status
+          engine.company = company
+        }.id
+    end
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_engineorder
     @engineorder = Engineorder.find(params[:id])
       if @engineorder.install_place_id.blank?
-         @engineorder.install_place = Installplace.new
+         @engineorder.install_place = Place.new
       else
-         @engineorder.install_place = Installplace.find(@engineorder.install_place_id)
+         @engineorder.install_place = Place.find(@engineorder.install_place_id)
       end
   end
 
@@ -311,7 +337,7 @@ puts"**********************"
   def engineorder_params
     params.require(:engineorder).permit(
       :issue_no, :inquiry_date, :registered_user_id, :updated_user_id,
-      :branch_id, :salesman_id, :install_place_id, :install_place,:installplace, :orderer, :machine_no,
+      :branch_id, :salesman_id, :install_place_id, :install_place,:place, :orderer, :machine_no,
       :time_of_running, :change_comment, :order_date, :sending_place_id,
       :sending_comment, :desirable_delivery_date, :businessstatus_id,
       :new_engine_id, :old_engine_id, :old_engine, :new_engine,

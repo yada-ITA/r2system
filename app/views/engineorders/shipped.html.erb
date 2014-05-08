@@ -37,7 +37,7 @@
 
     <div class="field">
       <%= f.label :shipped_date %><br>
-      <%= f.date_select :shipped_date, :use_month_numbers => true %>
+      <%= f.date_select :shipped_date, :use_month_numbers => true, :start_year => 2005 %>
     </div>
 
     <div class="field">
@@ -59,7 +59,7 @@
   <div class="well col-sm-7">
     <div class="field">
       <%= f.label :inquiry_date %><br>
-      <%= f.date_select :inquiry_date, :use_month_numbers => true, :disabled=>disabled_data[:inquiry_date] %>
+      <%= f.date_select :inquiry_date, :use_month_numbers => true, :disabled=>disabled_data[:inquiry_date], :start_year => 2005 %>
     </div>
 
     <div class="field">
@@ -72,7 +72,7 @@
     </div>
 
   <div class="field">
-    <%= render "installplace", {f: f, orderinfo: @engineorder, :disabled_info => disabled_data[:install_place]} %>
+    <%= render "place", {f: f, orderinfo: @engineorder, :disabled_info => disabled_data[:install_place]} %>
   </div>
 
     <div class="field">
@@ -95,7 +95,7 @@
     </div>
     <div class="field">
       <%= f.label :day_of_test %><br>
-      <%= f.date_select :day_of_test, :use_month_numbers => true, :start_year => Engine::EARLIEST_START_YEAR, :disabled=>disabled_data[:day_of_test] %>
+      <%= f.date_select :day_of_test, :use_month_numbers => true, :start_year => Engine::EARLIEST_START_YEAR, :disabled=>disabled_data[:day_of_test], :start_year => 1990 %>
     </div>
 
     <div class="field">
@@ -110,7 +110,7 @@
 
     <div class="field">
       <%= f.label :desirable_delivery_date %><br>
-      <%= f.date_select :desirable_delivery_date, :use_month_numbers => true, :disabled=>disabled_data[:desirable_delivery_date] %>
+      <%= f.date_select :desirable_delivery_date, :use_month_numbers => true, :disabled=>disabled_data[:desirable_delivery_date], :start_year => 2005 %>
     </div>
 
 
@@ -123,7 +123,7 @@
 
     <div class="field">
       <%= f.label :allocated_date %><br>
-      <%= f.date_select :allocated_date, :use_month_numbers => true , :disabled=>disabled_data[:allocated_date]%>
+      <%= f.date_select :allocated_date, :use_month_numbers => true , :disabled=>disabled_data[:allocated_date], :start_year => 2005%>
     </div>
 
     <div class="field">

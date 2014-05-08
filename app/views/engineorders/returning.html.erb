@@ -42,7 +42,7 @@
 
   <div class="field">
     <%= f.label :returning_date %><br>
-    <%= f.date_select :returning_date , :use_month_numbers => true %>
+    <%= f.date_select :returning_date , :use_month_numbers => true, :start_year => 2005 %>
   </div>
 
   <div class="field">
@@ -62,12 +62,12 @@
 <div class="well col-sm-7">
   <div class="field">
     <%= f.label :inquiry_date %><br>
-    <%= f.date_select :inquiry_date , :use_month_numbers => true ,  :disabled=> disabled_data[:inquiry_date]  %>
+    <%= f.date_select :inquiry_date , :use_month_numbers => true ,  :disabled=> disabled_data[:inquiry_date], :start_year => 2005  %>
   </div>
 
   <div class="field">
     <%= f.label :order_date %><br>
-    <%= f.date_select :order_date , :use_month_numbers => true, :disabled=> disabled_data[:order_date]   %>
+    <%= f.date_select :order_date , :use_month_numbers => true, :disabled=> disabled_data[:order_date], :start_year => 2005  %>
   </div>
 
   <div class="field">
@@ -80,7 +80,7 @@
   </div>
 
   <div class="field">
-    <%= render "installplace", {f: f, orderinfo: @engineorder, :disabled_info => disabled_data[:install_place]} %>
+    <%= render "place", {f: f, orderinfo: @engineorder, :disabled_info => disabled_data[:install_place]} %>
   </div>
 
   <div class="field">
@@ -102,7 +102,7 @@
   </div>
   <div class="field">
     <%= f.label :day_of_test %><br>
-    <%= f.date_select :day_of_test , :use_month_numbers => true , :disabled=> disabled_data[:day_of_test]  %>
+    <%= f.date_select :day_of_test , :use_month_numbers => true , :disabled=> disabled_data[:day_of_test], :start_year => 1990  %>
   </div>
   <div class="field">
     <%= f.label :change_comment %><br>

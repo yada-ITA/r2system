@@ -1,6 +1,6 @@
-class CreateInstallplaces < ActiveRecord::Migration
+class CreatePlaces < ActiveRecord::Migration
   def change
-    create_table :installplaces do |t|
+    create_table :places do |t|
       t.string :name
       t.string :postcode
       t.string :address
