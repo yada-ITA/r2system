@@ -12,6 +12,13 @@
                                                    default: {year: @searched[:"purchase_month(1i)"], month: @searched[:"purchase_month(2i)"]}  %>
         </td>
       </tr>
+      <tr>
+        <td width="80">整備会社</td>
+        <td width="120">
+          <%= collection_select(:search, :company_id, Company.all.tender, :id, :name,
+                                include_blank: true, selected: @searched[:company_id]) %>
+        </td>
+      </tr>
     </table>
     <br>
     <%= submit_tag "検索" %>
@@ -25,11 +32,11 @@
   <thead>
     <tr>
       <th><%= Repair.human_attribute_name(:order_no) %></th>
+      <th><%= Repair.human_attribute_name(:competitor_code) %></th>
       <th><%= Repair.human_attribute_name(:purachase_date) %></th>
       <th><%= Engine.human_attribute_name(:engine_model_name) %></th>
       <th><%= Engine.human_attribute_name(:serialno) %></th>
       <th><%= Repair.human_attribute_name(:purachase_price) %></th>
-      <th class="workregist">詳細情報</th>
     </tr>
   </thead>
 
@@ -37,11 +44,11 @@
     <% @repairs.each do |repair| %>
       <tr>
         <td><%= repair.order_no %></td>
+        <td><%= repair.competitor_code %></td>
         <td><%= repair.purachase_date %></td>
         <td><%= repair.engine.engine_model_name %></td>
         <td><%= repair.engine.serialno %></td>
-        <td><%= repair.purachase_price %></td>
-        <td class="workregist"><%= link_to t('views.link_show'), repair, class: 'workregist_show' %></td>
+        <td><%= number_with_delimiter(repair.purachase_price) %></td>
       </tr>
     <% end %>
   </tbody>

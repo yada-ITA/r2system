@@ -37,6 +37,10 @@ class Engineorder < ActiveRecord::Base
   #旧エンジンは必ず流通登録に必要なので、必須項目とする。
   validates :old_engine, presence: true
 
+  # View でも数値以外入力できないように制限しているが、ブラウザ以外のクライアン
+  # トなども考慮して、Model でもバリデーションを設定しておく。
+  validates_numericality_of :time_of_running
+
   accepts_nested_attributes_for :old_engine
   accepts_nested_attributes_for :new_engine
 
@@ -212,6 +216,7 @@ class Engineorder < ActiveRecord::Base
       self.order_date = nil
       self.sending_place_id = nil
       self.sending_comment = nil
+      self.sales_amount = nil
       self.save!
       true
     else
@@ -261,7 +266,12 @@ class Engineorder < ActiveRecord::Base
 
   #sales_amountの値を'カンマ'をとった状態でオーバーライトする
   def sales_amount=(value)
-    self[:sales_amount] = value.gsub(/,/, '')
+    #self[:sales_amount] = value.gsub(/,/, '')
+    if value
+      self[:sales_amount] = value.gsub(/,/, '')
+    else
+      self[:sales_amount] = nil
+    end
   end
 
   def old_engine_attributes=(attrs)
