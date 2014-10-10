@@ -221,6 +221,12 @@ class EngineordersController < ApplicationController
                                            company: current_user.company)
     end
 
+    # 送付先が既登録からの選択の場合
+    puts params
+    if params[:engineorder][:sending_place_attributes].size == 1
+      params[:engineorder][:sending_place_attributes] = nil
+    end
+    
     respond_to do |format|
       if @engineorder.update(engineorder_params)
         # 受注オブジェクトの状況などから、単純な画面項目のセット以外の、各種編集を行う
@@ -481,7 +487,6 @@ class EngineordersController < ApplicationController
   def setNewEngine
     engine_id = params[:engineorder][:new_engine_id]
     unless engine_id.blank?
-      puts '-----*------new engine changed'
       @engineorder.new_engine = Engine.find(engine_id)
     end
   end
@@ -529,7 +534,7 @@ class EngineordersController < ApplicationController
       :shipped_date, :shipped_comment, :returning_date, :returning_comment, :title,
       :returning_place_id, :allocated_date, :sales_amount,
       :install_place_attributes => [:id,:install_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy],
-      :sending_place_attributes => [:id,:sending_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy],
+      :sending_place_attributes => [:id,:sending_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy, :company_id],
       :old_engine_attributes => [:id, :engine_model_name, :serialno],
       :new_engine_attributes => [:engine_model_name, :serialno])
   end

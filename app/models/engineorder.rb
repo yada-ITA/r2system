@@ -8,16 +8,17 @@ class Engineorder < ActiveRecord::Base
   belongs_to :old_engine, :class_name => 'Engine' 
   belongs_to :new_engine, :class_name => 'Engine' 
 
+  # 拠点）
   belongs_to :branch, :class_name => 'Company' 
-#  belongs_to :sending_place,   :class_name => 'Company' 
 
+  # 場所（返却先）
   belongs_to :returning_place, :class_name => 'Company' 
 
-  #場所（設置場所）
+  # 場所（設置場所）
   belongs_to :install_place,   :class_name => 'Place' , foreign_key: 'install_place_id'
   accepts_nested_attributes_for :install_place
 
-  #場所（送付先）
+  # 場所（送付先）
   belongs_to :sending_place,   :class_name => 'Place' , foreign_key: 'sending_place_id'
   accepts_nested_attributes_for :sending_place
 
@@ -74,7 +75,7 @@ class Engineorder < ActiveRecord::Base
     self.old_engine = engine
   end
 
-  # ステータスの確認メソッド集 --------------- #
+  # --------------- ステータスの確認メソッド集 --------------- #
   # メソッド名を lower-camel-case -> snake-case に変更しています。
   # 新規引合かどうか？
   def new_inquiry?
