@@ -223,8 +223,10 @@ class EngineordersController < ApplicationController
 
     # 送付先が既登録からの選択の場合
     puts params
-    if params[:engineorder][:sending_place_attributes].size == 1
-      params[:engineorder][:sending_place_attributes] = nil
+    unless params[:engineorder][:sending_place_attributes].nil?
+      if params[:engineorder][:sending_place_attributes].size == 1
+        params[:engineorder][:sending_place_attributes] = nil
+      end
     end
     
     respond_to do |format|
