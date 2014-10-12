@@ -127,20 +127,9 @@ class EngineordersController < ApplicationController
       @engineorder.new_engine = Engine.new
     end
 
-    #流通ステータスでレンダリング先を変える。
-    # switch 文のような if 文の並びは case 文で書くとすっきりします。
-    # 受注オブジェクトの状態問い合わせメソッドを lower-camel-case から
-    # snake-case に変更しました。
-    case
-    when @engineorder.inquiry?
-      render :template => "engineorders/inquiry"
-    when @engineorder.shipped?
-      render :template => "engineorders/shipped"
-    when @engineorder.shipping_preparation?
-      render :template => "engineorders/allocated"
-    when @engineorder.ordered?
-      render :template => "engineorders/ordered"
-    end
+    render_on_status
+    
+   
   end	
 
   # POST /engineorders
@@ -236,7 +225,8 @@ class EngineordersController < ApplicationController
         format.html { redirect_to @engineorder, notice: t('controller_msg.engineorder_updated')}
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { render_on_status }
+        # format.html { render action: 'edit' }
         format.json { render json: @engineorder.errors, status: :unprocessable_entity }
       end
     end
@@ -272,6 +262,21 @@ class EngineordersController < ApplicationController
         @engineorder.old_engine = Engine.new
       end
         @engineorder.install_place = Place.new
+    end
+  end
+
+  # 流通ステータスでレンダリング先を変える。
+  # 
+  def render_on_status
+    case
+    when @engineorder.inquiry?
+      render :template => "engineorders/inquiry"
+    when @engineorder.shipped?
+      render :template => "engineorders/shipped"
+    when @engineorder.shipping_preparation?
+      render :template => "engineorders/allocated"
+    when @engineorder.ordered?
+      render :template => "engineorders/ordered"
     end
   end
 

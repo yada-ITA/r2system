@@ -41,6 +41,19 @@ class Engineorder < ActiveRecord::Base
   accepts_nested_attributes_for :old_engine
   accepts_nested_attributes_for :new_engine
 
+  validate :presence_sending_info
+  
+  def presence_sending_info
+    if self.ordered?
+      if self.sending_place.nil?
+        errors.add(:sending_place_id, :empty)
+      end
+      if self.sending_comment.blank?
+        errors.add(:sending_comment, :empty)
+      end
+    end
+  end
+
   # 新エンジンをセットする
   # 独自の setNewEngine メソッドではなく、そのまま order.new_engine = engine と
   # 書けるように、ActiveRecord が定義する new_engine= メソッドを拡張しました。

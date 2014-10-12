@@ -56,7 +56,7 @@
   <!-- 拠点 -->
   <div class="field">
     <%= f.label :branch_id %><br>
-    <%= f.collection_select( :branch_id, Company.all, :id, :name, {}, {:include_blank => false, :disabled => disabled_data[:branch] } ) %>
+    <%= f.collection_select( :branch_id, Company.all, :id, :name, {}, {:include_blank => false, :disabled => false } ) %>
   </div>
   
   <div class="field">
