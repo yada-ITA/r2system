@@ -71,6 +71,11 @@
     <%= f.hidden_field :registered_user_id %>
   </div>
 
+  <div class="actions">
+    <%= f.submit :value => t('views.buttun_ordered'), :confirm => t('views.buttun_ordered')+t('views.confirm_msg') %>
+  </div>  
+  <br>
+
   <div class="field">
     <%= f.label :issue_no %>：
     <%=  @engineorder.issue_no %>
@@ -87,7 +92,7 @@
   </div>
   <div class="field">
     <%= f.label :sales_amount %><br>
-    <%= f.text_field :sales_amount, :value=>number_with_delimiter(@engineorder.sales_amount), :autocomplete=>'off', :style=>"text-align:right" %> 円
+    <%= f.text_field :sales_amount, :value=>number_with_delimiter(@engineorder.sales_amount), :autocomplete=>'off', :style=>"text-align:right;""ime-mode:disabled;" %> 円
   </div>
 <br>
 <!-- のちほど別erbに切り出す。-->
@@ -110,7 +115,7 @@
         </tr>
         <tr>
           <td>設置先名</td>
-          <td><%= p.text_field :name , :size => 20 , :disabled=> false %></td>
+          <td><%= p.text_field :name , :size => 40 , :disabled=> false %></td>
         </tr>
         <tr>
           <td>担当者</td>
@@ -155,6 +160,10 @@
         <tr>
           <td>TEL</td>
           <td><%= p.text_field :phone_no , :size => 15, :disabled=> disabled_data[:sending_place], :id => :sending_phone_no %></td>
+        </tr>
+        <tr>
+          <td>宛先</td>
+          <td><%= p.text_field :name , :size => 40 , :disabled=> disabled_data[:sending_place] %></td>
         </tr>
         <tr>
           <td>担当者</td>
