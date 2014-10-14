@@ -1,6 +1,7 @@
 <h1>流通情報詳細</h1>
 
-<%= render "statusrollback" %>
+<%= render "statusrollback"   unless @engineorder.inquiry?  %>
+
 <br>
 <% if current_user.yes? %>
   <% if current_user.yesOffice? || current_user.systemAdmin? %>
@@ -65,7 +66,7 @@
 
  <div class="field">
    <%= Engineorder.human_attribute_name('time_of_running') %>：
-  <%= @engineorder.time_of_running %>
+  <%= number_with_delimiter(@engineorder.time_of_running) %>
 </div>
 
 
@@ -171,5 +172,4 @@
   <%= link_to t('views.link_back'), anchor_path %>
 <% end %>
 
-
-<%= render "statusrollback" %>
+<%= render "statusrollback"  unless @engineorder.inquiry? %>
