@@ -129,7 +129,8 @@
 
   <!-- 送付先 -->
   <div class="field">
-    <%= f.label :sending_place_id %><br>
+    <!-- Gem "need label"では対応できないので、直接クラスを設定しています -->
+    <%= f.label :sending_place_id, :class => "need-label" %><br>
     <input type="radio" name="sending_place" value="select" checked onclick="javascript:sending_place_changed('exists');">既存から選ぶ
     <input type="radio" name="sending_place" value="new"            onclick="javascript:sending_place_changed('create');"   >新規に登録する
 
@@ -165,7 +166,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :sending_comment %><br>
+    <!-- Gem "need label"では対応できないので、直接クラスを設定しています -->
+    <%= f.label :sending_comment, :class => "need-label" %><br>
     <%= f.text_area :sending_comment %>
   </div>
   <div class="field">
