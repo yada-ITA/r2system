@@ -49,12 +49,12 @@ class Engineorder < ActiveRecord::Base
   
   def presence_sending_info
     if self.ordered?
-      if self.sending_place.nil?
+      if self.sending_place_id.blank?
         errors.add(:sending_place_id, :empty)
       end
-      if self.sending_comment.blank?
-        errors.add(:sending_comment, :empty)
-      end
+      #if self.sending_comment.blank?
+      #  errors.add(:sending_comment, :empty)
+      #end
     end
   end
 
