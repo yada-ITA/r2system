@@ -142,11 +142,11 @@
     <br>
       <table>
         <tr id="select_sending_cell" >
-          <td>名称</td>
+          <td>宛先</td>
           <td >
-            <%= f.collection_select( :sending_place_id, Place.where(:company_id => current_user.company_id), :id, :name, options = {:include_blank => true, :id => :select_sending },html_options = {:onchange => 'placeChanged(\'sending\')', :id => :select_sending }  ) %>
+            <%= f.collection_select( :sending_place_id, Place.where(:company_id => current_user.company_id), :id, :name, options = {:include_blank => true, :id => :select_sending, :size => 40 },html_options = {:onchange => 'placeChanged(\'sending\')', :id => :select_sending }  ) %>
         <%= f.fields_for :sending_place do |p| %>
-            <%= p.text_field :name, :size => 20, :id => :sending_name %>
+            <%= p.text_field :name, :size => 40, :id => :sending_name %>
           </td>
         </tr>
         <tr>
