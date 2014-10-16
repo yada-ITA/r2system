@@ -9,6 +9,11 @@ class Repair < ActiveRecord::Base
   validates_uniqueness_of :construction_no,
                                    if: ->(repair) { repair.repair_order? }
 
+ # 仕入登録時の必須項目
+  validates_presence_of :purachase_price, :competitor_code,
+                                   if: ->(repair) { repair.paid? }
+
+
   # Association
   belongs_to :engine
   belongs_to :company

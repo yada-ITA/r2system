@@ -5,7 +5,7 @@ repair1:
   start_date: <%= Date.today %>
   finish_date: <%= Date.today %>
   order_date: <%= Date.today %>
-  construction_no: 1
+  construction_no: "CN000001"
   desirable_finish_date: <%= Date.today %>
   estimated_finish_date: <%= Date.today %>
   engine: engine7
@@ -21,6 +21,7 @@ repair_201408_1:
   finish_date: "2014-08-01"
   engine: engine7
   company: company2
+  construction_no: "CN000002"
   paymentstatus_id: <%= Paymentstatus::ID_PAID %>
 
 repair_201408_2:
@@ -33,6 +34,7 @@ repair_201408_2:
   finish_date: "2014-08-02"
   engine: engine7
   company: company2
+  construction_no: "CN000003"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_3:
@@ -45,6 +47,7 @@ repair_201408_3:
   finish_date: "2014-08-03"
   engine: engine7
   company: company2
+  construction_no: "CN000004"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_4:
@@ -57,6 +60,7 @@ repair_201408_4:
   finish_date: "2014-08-04"
   engine: engine7
   company: company2
+  construction_no: "CN000005"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_5:
@@ -69,6 +73,7 @@ repair_201408_5:
   finish_date: "2014-08-05"
   engine: engine7
   company: company2
+  construction_no: "CN000006"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_6:
@@ -81,6 +86,7 @@ repair_201408_6:
   finish_date: "2014-08-06"
   engine: engine7
   company: company2
+  construction_no: "CN000007"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_7:
@@ -93,6 +99,7 @@ repair_201408_7:
   finish_date: "2014-08-07"
   engine: engine7
   company: company2
+  construction_no: "CN000008"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_8:
@@ -105,6 +112,7 @@ repair_201408_8:
   finish_date: "2014-08-08"
   engine: engine7
   company: company2
+  construction_no: "CN000009"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_9:
@@ -117,6 +125,7 @@ repair_201408_9:
   finish_date: "2014-08-09"
   engine: engine7
   company: company2
+  construction_no: "CN000010"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_10:
@@ -129,6 +138,7 @@ repair_201408_10:
   finish_date: "2014-08-10"
   engine: engine7
   company: company2
+  construction_no: "CN000011"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_11:
@@ -141,6 +151,7 @@ repair_201408_11:
   finish_date: "2014-08-11"
   engine: engine7
   company: company2
+  construction_no: "CN000012"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_12:
@@ -153,6 +164,7 @@ repair_201408_12:
   finish_date: "2014-08-12"
   engine: engine7
   company: company2
+  construction_no: "CN000013"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_13:
@@ -165,6 +177,7 @@ repair_201408_13:
   finish_date: "2014-08-13"
   engine: engine7
   company: company2
+  construction_no: "CN000014"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_14:
@@ -177,6 +190,7 @@ repair_201408_14:
   finish_date: "2014-08-14"
   engine: engine7
   company: company2
+  construction_no: "CN000015"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_15:
@@ -189,6 +203,7 @@ repair_201408_15:
   finish_date: "2014-08-15"
   engine: engine7
   company: company2
+   construction_no: "CN000016"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_16:
@@ -201,6 +216,7 @@ repair_201408_16:
   finish_date: "2014-08-16"
   engine: engine7
   company: company2
+  construction_no: "CN000017"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_17:
@@ -213,6 +229,7 @@ repair_201408_17:
   finish_date: "2014-08-17"
   engine: engine7
   company: company2
+  construction_no: "CN000018"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_18:
@@ -225,6 +242,7 @@ repair_201408_18:
   finish_date: "2014-08-18"
   engine: engine7
   company: company2
+  construction_no: "CN000019"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_19:
@@ -237,6 +255,7 @@ repair_201408_19:
   finish_date: "2014-08-19"
   engine: engine7
   company: company2
+  construction_no: "CN000020"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_20:
@@ -249,6 +268,7 @@ repair_201408_20:
   finish_date: "2014-08-20"
   engine: engine7
   company: company2
+  construction_no: "CN000021"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_21:
@@ -261,6 +281,7 @@ repair_201408_21:
   finish_date: "2014-08-21"
   engine: engine7
   company: company2
+  construction_no: "CN000022"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_22:
@@ -273,6 +294,7 @@ repair_201408_22:
   finish_date: "2014-08-22"
   engine: engine7
   company: company2
+  construction_no: "CN000023"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_23:
@@ -285,6 +307,7 @@ repair_201408_23:
   finish_date: "2014-08-23"
   engine: engine7
   company: company2
+  construction_no: "CN000024"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_24:
@@ -297,6 +320,7 @@ repair_201408_24:
   finish_date: "2014-08-24"
   engine: engine7
   company: company2
+  construction_no: "CN000025"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_25:
@@ -309,6 +333,7 @@ repair_201408_25:
   finish_date: "2014-08-25"
   engine: engine7
   company: company2
+  construction_no: "CN000026"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_26:
@@ -321,6 +346,7 @@ repair_201408_26:
   finish_date: "2014-08-26"
   engine: engine7
   company: company2
+  construction_no: "CN000027"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_27:
@@ -333,6 +359,7 @@ repair_201408_27:
   finish_date: "2014-08-27"
   engine: engine7
   company: company2
+  construction_no: "CN000028"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_28:
@@ -345,6 +372,7 @@ repair_201408_28:
   finish_date: "2014-08-28"
   engine: engine7
   company: company2
+  construction_no: "CN000029"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_29:
@@ -357,6 +385,7 @@ repair_201408_29:
   finish_date: "2014-08-29"
   engine: engine7
   company: company2
+  construction_no: "CN000030"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_30:
@@ -369,6 +398,7 @@ repair_201408_30:
   finish_date: "2014-08-30"
   engine: engine7
   company: company2
+  construction_no: "CN000031"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_31:
@@ -381,6 +411,7 @@ repair_201408_31:
   finish_date: "2014-08-31"
   engine: engine7
   company: company2
+  construction_no: "CN000032"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_1:
@@ -393,6 +424,7 @@ repair_201409_1:
   finish_date: "2014-09-01"
   engine: engine7
   company: company2
+  construction_no: "CN000033"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_2:
@@ -405,6 +437,7 @@ repair_201409_2:
   finish_date: "2014-09-02"
   engine: engine7
   company: company2
+  construction_no: "CN000034"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_3:
@@ -417,6 +450,7 @@ repair_201409_3:
   finish_date: "2014-09-03"
   engine: engine7
   company: company2
+  construction_no: "CN000035"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_4:
@@ -429,6 +463,7 @@ repair_201409_4:
   finish_date: "2014-09-04"
   engine: engine7
   company: company2
+  construction_no: "CN000036"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_5:
@@ -441,6 +476,7 @@ repair_201409_5:
   finish_date: "2014-09-05"
   engine: engine7
   company: company2
+  construction_no: "CN000037"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_6:
@@ -453,6 +489,7 @@ repair_201409_6:
   finish_date: "2014-09-06"
   engine: engine7
   company: company2
+  construction_no: "CN000038"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_7:
@@ -465,6 +502,7 @@ repair_201409_7:
   finish_date: "2014-09-07"
   engine: engine7
   company: company2
+  construction_no: "CN000039"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_8:
@@ -477,6 +515,7 @@ repair_201409_8:
   finish_date: "2014-09-08"
   engine: engine7
   company: company2
+  construction_no: "CN000040"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_9:
@@ -489,6 +528,7 @@ repair_201409_9:
   finish_date: "2014-09-09"
   engine: engine7
   company: company2
+  construction_no: "CN000041"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_10:
@@ -501,6 +541,7 @@ repair_201409_10:
   finish_date: "2014-09-10"
   engine: engine7
   company: company2
+  construction_no: "CN000042"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_11:
@@ -513,6 +554,7 @@ repair_201409_11:
   finish_date: "2014-09-11"
   engine: engine7
   company: company2
+  construction_no: "CN000043"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_12:
@@ -525,6 +567,7 @@ repair_201409_12:
   finish_date: "2014-09-12"
   engine: engine7
   company: company2
+  construction_no: "CN000044"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_13:
@@ -537,6 +580,7 @@ repair_201409_13:
   finish_date: "2014-09-13"
   engine: engine7
   company: company2
+  construction_no: "CN000045"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_14:
@@ -549,6 +593,7 @@ repair_201409_14:
   finish_date: "2014-09-14"
   engine: engine7
   company: company2
+  construction_no: "CN000046"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_15:
@@ -561,6 +606,7 @@ repair_201409_15:
   finish_date: "2014-09-15"
   engine: engine7
   company: company2
+  construction_no: "CN000047"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_16:
@@ -573,6 +619,7 @@ repair_201409_16:
   finish_date: "2014-09-16"
   engine: engine7
   company: company2
+  construction_no: "CN000048"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_17:
@@ -585,6 +632,7 @@ repair_201409_17:
   finish_date: "2014-09-17"
   engine: engine7
   company: company2
+  construction_no: "CN000049"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_18:
@@ -597,6 +645,7 @@ repair_201409_18:
   finish_date: "2014-09-18"
   engine: engine7
   company: company2
+  construction_no: "CN000050"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_19:
@@ -609,6 +658,7 @@ repair_201409_19:
   finish_date: "2014-09-19"
   engine: engine7
   company: company2
+  construction_no: "CN000051"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_20:
@@ -621,6 +671,7 @@ repair_201409_20:
   finish_date: "2014-09-20"
   engine: engine7
   company: company2
+  construction_no: "CN000052"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_21:
@@ -633,6 +684,7 @@ repair_201409_21:
   finish_date: "2014-09-21"
   engine: engine7
   company: company3
+  construction_no: "CN000053"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_22:
@@ -645,6 +697,7 @@ repair_201409_22:
   finish_date: "2014-09-22"
   engine: engine7
   company: company3
+  construction_no: "CN000054"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_23:
@@ -657,6 +710,7 @@ repair_201409_23:
   finish_date: "2014-09-23"
   engine: engine7
   company: company2
+  construction_no: "CN000055"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_24:
@@ -669,6 +723,7 @@ repair_201409_24:
   finish_date: "2014-09-24"
   engine: engine7
   company: company3
+  construction_no: "CN000056"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_25:
@@ -681,6 +736,7 @@ repair_201409_25:
   finish_date: "2014-09-25"
   engine: engine7
   company: company2
+  construction_no: "CN000057"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_26:
@@ -693,6 +749,7 @@ repair_201409_26:
   finish_date: "2014-09-26"
   engine: engine7
   company: company2
+  construction_no: "CN000058"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_27:
@@ -705,6 +762,7 @@ repair_201409_27:
   finish_date: "2014-09-27"
   engine: engine7
   company: company2
+  construction_no: "CN000059"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_28:
@@ -717,6 +775,7 @@ repair_201409_28:
   finish_date: "2014-09-28"
   engine: engine7
   company: company2
+  construction_no: "CN000060"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_29:
@@ -729,6 +788,7 @@ repair_201409_29:
   finish_date: "2014-09-29"
   engine: engine7
   company: company2
+  construction_no: "CN000061"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201409_30:
@@ -741,6 +801,7 @@ repair_201409_30:
   finish_date: "2014-09-30"
   engine: engine7
   company: company2
+  construction_no: "CN000062"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201410_1:
@@ -753,4 +814,5 @@ repair_201410_1:
   finish_date: "2014-10-01"
   engine: engine7
   company: company2
+  construction_no: "CN000063"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
