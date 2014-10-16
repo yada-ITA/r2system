@@ -1,7 +1,14 @@
 class Repair < ActiveRecord::Base
 
   # validation
+
+ # 整備依頼時の必須項目
+  validates_presence_of :construction_no,
+                                   unless: ->(repair) { repair.engine.before_arrive? }
   
+  validates_uniqueness_of :construction_no,
+                                   unless: ->(repair) { repair.engine.before_arrive? }
+
   # Association
   belongs_to :engine
   belongs_to :company
