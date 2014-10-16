@@ -49,7 +49,7 @@ class Engineorder < ActiveRecord::Base
   
   def presence_sending_info
     if self.ordered?
-      if self.sending_place_id.blank?
+      if self.sending_place.name.blank?
         errors.add(:sending_place_id, :empty)
       end
       #if self.sending_comment.blank?
@@ -63,7 +63,6 @@ class Engineorder < ActiveRecord::Base
   # 書けるように、ActiveRecord が定義する new_engine= メソッドを拡張しました。
   # もともとの new_engine= メソッドを内部で呼び出すので、メソッド定義を上書きす
   # る前に元のメソッドに alias で別名を付けています。
-  # あと、冗長な self. 指定も削りました。
   alias :_orig_new_engine= :new_engine=
   def new_engine=(engine)
     if engine
