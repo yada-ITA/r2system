@@ -79,7 +79,7 @@
           <td><%= p.text_field :address , :size => 40  %></td>
         </tr>
         <tr>
-          <td>設置先名</td>
+          <td><%= p.label :name, Engineorder.human_attribute_name("install_place.name") %></td>
           <td><%= p.text_field :name , :size => 40 %></td>
         </tr>
         <tr>

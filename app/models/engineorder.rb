@@ -58,6 +58,10 @@ class Engineorder < ActiveRecord::Base
     end
   end
 
+  # 必須項目のバリデーション (引合登録画面)
+  validates_presence_of :title, :install_place, :orderer, :time_of_running,
+                        if: ->(engine_order) { engine_order.inquiry? }
+
   # 新エンジンをセットする
   # 独自の setNewEngine メソッドではなく、そのまま order.new_engine = engine と
   # 書けるように、ActiveRecord が定義する new_engine= メソッドを拡張しました。

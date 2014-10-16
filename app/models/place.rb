@@ -1,4 +1,6 @@
 class Place < ActiveRecord::Base
    has_many :engineorders
    belongs_to :company      # ‘—•tæ‚É‚Â‚¢‚Ä‚ÍA‹’“_‚²‚Æ‚Ì“o˜^‚Æ‚·‚é S-010
+
+   validates_presence_of :name
 end

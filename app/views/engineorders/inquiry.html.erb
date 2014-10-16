@@ -20,7 +20,7 @@
   <br>
 
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title, class: "need-label" %><br>
     <%= f.text_field :title %>
   </div>
 
@@ -58,7 +58,7 @@
 <!-- のちほど別erbに切り出す。-->
   <!-- 設置場所 -->
   <div class="field">
-    <%= f.label :install_place_id %>
+    <%= f.label :install_place_id, class: "need-label" %>
     <%= f.fields_for :install_place do |p| %>
       <table>
         <tr>
@@ -70,7 +70,7 @@
           <td><%= p.text_field :address , :size => 40 , :disabled=> false  %></td>
         </tr>
         <tr>
-          <td>設置先名</td>
+          <td><%= p.label :name, Engineorder.human_attribute_name("install_place.name") %></td>
           <td><%= p.text_field :name , :size => 40 , :disabled=> false %></td>
         </tr>
         <tr>
@@ -88,7 +88,7 @@
 
   <!-- 元請 -->
   <div class="field">
-    <%= f.label :orderer %><br>
+    <%= f.label :orderer, class: "need-label" %><br>
     <%= f.text_field :orderer %>
   </div>
 
@@ -111,7 +111,7 @@
 
   <!-- 運転時間 -->
   <div class="field">
-    <%= f.label :time_of_running %><br>
+    <%= f.label :time_of_running, class: "need-label" %><br>
     <%= f.text_field :time_of_running, :value=>number_with_delimiter(@engineorder.time_of_running), style: "ime-mode:disabled;",
                      onkeyup: raw("if (/\\D/g.test(this.value)) this.value = this.value.replace(/\\D/g, '')") %>
   </div>

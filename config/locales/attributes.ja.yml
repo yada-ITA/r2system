@@ -92,6 +92,8 @@ ja:
         old_engine_model_name: 返却エンジン型式
         old_serialno: '返却エンジンS/#'
         sales_amount: 売上金額（見込）
+      engineorder/install_place:
+        name: 設置先名
       place:
         name: 会社名
         category: 分類
