@@ -6,7 +6,6 @@
 <div class="row">
   <div class="col-md-4">
   <%= render 'engineInfo' %>
-  <% disabled_data = getDisabled_RepairFinished %>
 
 <br>
   <div class="field">
@@ -55,11 +54,11 @@
   <% if false %>
   <div class="field">
     <%= f.label :order_no %><br>
-    <%= f.text_field :order_no, :disabled=> disabled_data[:order_no] %>
+    <%= f.text_field :order_no, :disabled=> true %>
   </div>
   <div class="field">
     <%= f.label :order_date %><br>
-    <%= f.text_field :order_date, :disabled=> disabled_data[:order_date] %>
+    <%= f.text_field :order_date, :disabled=> true %>
   </div>
 <% end %>
   <div class="field">
@@ -68,7 +67,7 @@
   </div>
   <div class="field">
     <%= f.label :desirable_finish_date %><br>
-    <%= f.date_select :desirable_finish_date, :use_month_numbers => true, :di, :start_year => 2000 %>
+    <%= f.date_select :desirable_finish_date, :use_month_numbers => true, :disabled=> true, :start_year => 2000 %>
   </div>
 
   <div class="field">
@@ -82,11 +81,11 @@
 
   <div class="field">
     <%= f.label :start_date %><br>
-    <%= f.date_select :start_date, :use_month_numbers => true, :disabled=>disabled_data[:start_date], :start_year => 2000 %>
+    <%= f.date_select :start_date, :use_month_numbers => true, :disabled=>true, :start_year => 2000 %>
   </div>
   <div class="field">
     <%= f.label :estimated_finish_date %><br>
-    <%= f.date_select :estimated_finish_date, :use_month_numbers => true, :disabled=>disabled_data[:estimated_finish_date], :start_year => 2000 %>
+    <%= f.date_select :estimated_finish_date, :use_month_numbers => true, :disabled=>true, :start_year => 2000 %>
   </div>
   <div class="field">
     <%= label_tag '組立チェックシート' %><br>
