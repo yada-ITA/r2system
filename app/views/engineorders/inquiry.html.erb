@@ -58,27 +58,27 @@
 <!-- のちほど別erbに切り出す。-->
   <!-- 設置場所 -->
   <div class="field">
-    <%= f.label :install_place_id, class: "need-label" %>
+    <%= f.label :install_place_id %>
     <%= f.fields_for :install_place do |p| %>
       <table>
         <tr>
-          <td>〒</td>
+          <td><%= p.label :postcode, Engineorder.human_attribute_name("install_place.postcode") %></td>
           <td><%= p.text_field :postcode , :size => 8, :disabled=> false %></td>
         </tr>
         <tr>
-          <td>住所</td>
+          <td><%= p.label :address, Engineorder.human_attribute_name("install_place.address") %></td>
           <td><%= p.text_field :address , :size => 40 , :disabled=> false  %></td>
         </tr>
         <tr>
-          <td><%= p.label :name, Engineorder.human_attribute_name("install_place.name") %></td>
+          <td><%= p.label :name, Engineorder.human_attribute_name("install_place.name"), class: "need-label" %></td>
           <td><%= p.text_field :name , :size => 40 , :disabled=> false %></td>
         </tr>
         <tr>
-          <td>担当者</td>
+          <td><%= p.label :destination_name, Engineorder.human_attribute_name("install_place.destination_name") %></td>
           <td><%= p.text_field :destination_name , :size => 20 , :disabled=> false %></td>
         </tr>
           <tr>
-          <td>TEL</td>
+          <td><%= p.label :phone_no, Engineorder.human_attribute_name("install_place.phone_no") %></td>
           <td><%= p.text_field :phone_no , :size => 15, :disabled=> false %></td>
         </tr>
       </table>

@@ -58,9 +58,79 @@ class Engineorder < ActiveRecord::Base
     end
   end
 
-  # 必須項目のバリデーション (引合登録画面)
-  validates_presence_of :title, :install_place, :orderer, :time_of_running,
-                        if: ->(engine_order) { engine_order.inquiry? }
+  #
+  # 必須項目のバリデーション (引合登録)
+  #
+  validate :validate_inquiry_fields, if: ->(engine_order) { engine_order.inquiry? }
+
+  def validate_inquiry_fields
+    # 工事名称
+    errors.add_on_blank(:title) if title.blank?
+    # 設置先(名称のみ)
+    if install_place.name.blank?
+      install_place.errors.add_on_blank(:name)  # 子オブジェクトにエラーを設定
+      # さらに、親オブジェクトにもエラーを設定しないと、画面上部にエラーメッセージを出せない
+      errors.add("install_place.name", "を入力してください")  # FIXME: 文言を直書きしてる
+    end
+    # 元受
+    errors.add_on_blank(:orderer) if orderer.blank?
+    # エンジン運転時間
+    errors.add_on_blank(:time_of_running) if time_of_running.blank?
+    errors.empty?
+  end
+
+  #
+  # 必須項目のバリデーション (受注登録)
+  #
+  validate :validate_ordered_fields, if: ->(engine_order) { engine_order.ordered? }
+
+  def validate_ordered_fields
+    # 受注登録時は引合登録時の必須項目も必須
+    validate_inquiry_fields
+    # 送付先 - 会社名
+    if sending_place.name.blank?
+      sending_place.errors.add_on_blank(:name)
+      errors.add("sending_place.name", "を入力してください")
+    end
+    # 送付先 - 郵便番号
+    if sending_place.postcode.blank?
+      sending_place.errors.add_on_blank(:postcode)
+      errors.add("sending_place.postcode", "を入力してください")
+    end
+    # 送付先 - 住所
+    if sending_place.address.blank?
+      sending_place.errors.add_on_blank(:address)
+      errors.add("sending_place.address", "を入力してください")
+    end
+    # 送付先 - TEL
+    if sending_place.phone_no.blank?
+      sending_place.errors.add_on_blank(:phone_no)
+      errors.add("sending_place.phone_no", "を入力してください")
+    end
+    # 送付先 - 宛名
+    if sending_place.destination_name.blank?
+      sending_place.errors.add_on_blank(:destination_name)
+      errors.add("sending_place.destination_name", "を入力してください")
+    end
+    # 売上金額 (見込み)
+    errors.add_on_blank(:sales_amount) if sales_amount.blank?
+    errors.empty?
+  end
+
+  #
+  # 必須項目のバリデーション (引当登録)
+  #
+  validate :validate_shipping_preparation_fields, if: ->(engine_order) { engine_order.shipping_preparation? }
+
+  def validate_shipping_preparation_fields
+    # 引当登録時は受注登録時の必須項目も必須
+    validate_ordered_fields
+    # 新規エンジン
+    errors.add_on_blank(:new_engine) if new_engine.nil?
+    # 返却先
+    errors.add_on_blank(:returning_place_id) if returning_place_id.blank?
+    errors.empty?
+  end
 
   # 新エンジンをセットする
   # 独自の setNewEngine メソッドではなく、そのまま order.new_engine = engine と

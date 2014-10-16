@@ -226,7 +226,6 @@ class EngineordersController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render_on_status }
-        # format.html { render action: 'edit' }
         format.json { render json: @engineorder.errors, status: :unprocessable_entity }
       end
     end
