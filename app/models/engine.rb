@@ -15,6 +15,7 @@ class Engine < ActiveRecord::Base
   # engine.status で Enginestatus をアクセスできるようにしてみました。
   belongs_to :status, class_name: 'Enginestatus', foreign_key: 'enginestatus_id'
   belongs_to :company
+  belongs_to :enginemodel
 
   has_many :repairs
   has_many :charge

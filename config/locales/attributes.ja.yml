@@ -42,7 +42,7 @@ ja:
         purachase_date: 仕入日
         purachase_comment: コメント（仕入）
         purachase_price: 仕入価格（税抜）
-        competitor_code: 他社品コード（仮）
+        competitor_code: 他社部品コード
       user:
         userid: ログインＩＤ
         code: 社員コード
@@ -81,7 +81,7 @@ ja:
         returning_comment: 返却コメント
         shipped_date: 出荷日
         shipped_comment: 出荷コメント
-        title: 物件名
+        title: 工事名称
         returning_date: 返却日 
         returning_comment: 返却コメント
         invoice_no_new: 送り状No（新エンジン）

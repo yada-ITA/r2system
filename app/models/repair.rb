@@ -1,7 +1,19 @@
 class Repair < ActiveRecord::Base
 
   # validation
+
+ # 整備依頼時の必須項目
+  validates_presence_of :construction_no,
+                                   if: ->(repair) { repair.repair_order? }
   
+  validates_uniqueness_of :construction_no,
+                                   if: ->(repair) { repair.repair_order? }
+
+ # 仕入登録時の必須項目
+  validates_presence_of :purachase_price, :competitor_code,
+                                   if: ->(repair) { repair.paid? }
+
+
   # Association
   belongs_to :engine
   belongs_to :company
@@ -180,5 +192,10 @@ class Repair < ActiveRecord::Base
     else
       false
     end
+  end
+
+  #整備依頼されている状態以降かどうかをチェックｓるう
+  def repair_order? 
+    self.order_date.present?    
   end
 end

@@ -12,7 +12,7 @@ class UndoReturnTest < AcceptanceTest
     save_screenshot "UndoReturnTest1-02.png"
     click_link "新規引合"
     save_screenshot "UndoReturnTest1-03.png"
-    fill_in "物件名", with: "物件1"
+    fill_in "工事名称", with: "物件1"
     save_screenshot "UndoReturnTest1-04.png"
     select "エンジンモデル名1", from: "engineorder_old_engine_attributes_engine_model_name"
     save_screenshot "UndoReturnTest1-05.png"

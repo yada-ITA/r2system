@@ -4,7 +4,7 @@
 
   <div class="field">
     <%= f.label :engine_model_name %><br>
-    <%= autocomplete_field :engine, :engine_model_name, autocomplete_engine_engine_model_name_engines_path %>
+    <%= f.collection_select( :engine_model_name, Enginemodel.all, :modelcode, :modelcode, :include_blank => true ) %><br>
   </div>
   <div class="field">
     <%= f.label :serialno %><br>
