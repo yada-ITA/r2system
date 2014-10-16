@@ -5,7 +5,7 @@
   // 送付先のデフォルトは既存からの選択
   var ready;
   ready = function(){
-    sending_place_changed( 'exists' );
+    sending_place_changed( 'hand' );
     };
   
   $(document).ready(ready);
@@ -13,7 +13,8 @@
 
   // 送付先を新規登録と既存からの選択の2種類選べるようにする
   function sending_place_changed( mode ) {
-    if (mode == 'create'){
+    // 
+    if (mode == 'hand'){
     
       // 新規登録の場合
       document.getElementById('sending_name').style.display = '';
@@ -33,7 +34,7 @@
       document.getElementById('sending_destination_name').value = "";
 
       }
-    if (mode == 'exists'){
+    if (mode == 'master'){
 
       // 既存から選択の場合の場合
       document.getElementById('sending_name').style.display = 'none'; 
@@ -136,19 +137,12 @@
   <div class="field">
     <!-- Gem "need label"では対応できないので、直接クラスを設定しています -->
     <%= f.label :sending_place_id, :class => "need-label" %><br>
-    <input type="radio" name="sending_place" value="select" checked onclick="javascript:sending_place_changed('exists');">既存から選ぶ
-    <input type="radio" name="sending_place" value="new"            onclick="javascript:sending_place_changed('create');"   >新規に登録する
-
+    <input type="radio" name="sending_place" value="master" onclick="javascript:sending_place_changed('master');">マスタから選ぶ
+    <input type="radio" name="sending_place" value="hand"   checked onclick="javascript:sending_place_changed('hand');">手入力
+	
     <br>
+      <%= f.fields_for :sending_place do |p| %>
       <table>
-        <tr id="select_sending_cell" >
-          <td>宛先</td>
-          <td >
-            <%= f.collection_select( :sending_place_id, Place.where(:company_id => current_user.company_id), :id, :name, options = {:include_blank => true, :id => :select_sending, :size => 40 },html_options = {:onchange => 'placeChanged(\'sending\')', :id => :select_sending }  ) %>
-        <%= f.fields_for :sending_place do |p| %>
-            <%= p.text_field :name, :size => 40, :id => :sending_name %>
-          </td>
-        </tr>
         <tr>
           <td>〒</td>
           <td><%= p.text_field :postcode , :size => 8, :disabled=> disabled_data[:sending_place], :id => :sending_postcode %></td>
@@ -157,13 +151,22 @@
           <td>住所</td>
           <td><%= p.text_field :address , :size => 40 , :disabled=> disabled_data[:sending_place], :id => :sending_address %></td>
         </tr>
-        <tr>
-          <td>TEL</td>
-          <td><%= p.text_field :phone_no , :size => 15, :disabled=> disabled_data[:sending_place], :id => :sending_phone_no %></td>
+        <tr id="select_sending_cell" >
+          <td>宛先</td>
+          <td >
+      
+            <%= f.collection_select( :sending_place_id, Place.where(:company_id => current_user.company_id), :id, :name, options = {:include_blank => true, :id => :select_sending, :size => 40 },html_options = {:onchange => 'placeChanged(\'sending\')', :id => :select_sending }  ) %>
+
+            <%= p.text_field :name, :size => 40, :id => :sending_name %>
+          </td>
         </tr>
         <tr>
           <td>担当者</td>
           <td><%= p.text_field :destination_name , :size => 20 , :disabled=> disabled_data[:sending_place], :id => :sending_destination_name  %></td>
+        </tr>
+        <tr>
+          <td>TEL</td>
+          <td><%= p.text_field :phone_no , :size => 15, :disabled=> disabled_data[:sending_place], :id => :sending_phone_no %></td>
         </tr>
       </table>
       <%= p.hidden_field :company_id, :value => current_user.company_id, :id => :sending_company %>
