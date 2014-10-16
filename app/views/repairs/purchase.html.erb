@@ -52,7 +52,7 @@
     <%= f.label :order_date %><br>
     <%= f.text_field :order_date, :disabled=> true %>
   </div>
-<% if false %>
+  <% if false %>
   <div class="field">
     <%= f.label :order_no %><br>
     <%= f.text_field :order_no, :disabled=> disabled_data[:order_no] %>
@@ -64,11 +64,11 @@
 <% end %>
   <div class="field">
     <%= f.label :construction_no %><br>
-    <%= f.text_field :construction_no, :disabled=> disabled_data[:construction_no] %>
+    <%= f.text_field :construction_no, :disabled=> true %>
   </div>
   <div class="field">
     <%= f.label :desirable_finish_date %><br>
-    <%= f.date_select :desirable_finish_date, :use_month_numbers => true, :disabled=>disabled_data[:desirable_finish_date], :start_year => 2000 %>
+    <%= f.date_select :desirable_finish_date, :use_month_numbers => true, :di, :start_year => 2000 %>
   </div>
 
   <div class="field">
