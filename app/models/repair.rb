@@ -4,10 +4,10 @@ class Repair < ActiveRecord::Base
 
  # 整備依頼時の必須項目
   validates_presence_of :construction_no,
-                                   unless: ->(repair) { repair.engine.before_arrive? }
+                                   if: ->(repair) { repair.repair_order? }
   
   validates_uniqueness_of :construction_no,
-                                   unless: ->(repair) { repair.engine.before_arrive? }
+                                   if: ->(repair) { repair.repair_order? }
 
   # Association
   belongs_to :engine
@@ -187,5 +187,10 @@ class Repair < ActiveRecord::Base
     else
       false
     end
+  end
+
+  #整備依頼されている状態以降かどうかをチェックｓるう
+  def repair_order? 
+    self.order_date.present?    
   end
 end
