@@ -5,14 +5,14 @@
 <div class="well">
   <%= form_tag engines_index_path, :method => :get do %>
   <table>
-    <% if current_user.yesOffice? || current_user.systemAdmin? %>
+    <!-- if current_user.yes? || current_user.systemAdmin? -->
       <tr>
         <td width="80" >管轄     </td>
         <td width="120"><%= collection_select(:search, :company_id, Company.all, :id, :name, :include_blank => true, :selected => @searched[:company_id]) %></td>
       </tr>
-    <% else %>
-      <%= hidden_field(:search, :company_id, :value => current_user.company_id) %>
-    <% end %>
+    <!-- else -->
+      <!--= hidden_field(:search, :company_id, :value => current_user.company_id) -->
+    <!-- end -->
     <tr>
       <td width="80" >エンジン型式</td>
       <td width="120"><%= text_field :search, :engine_model_name, :value => @searched[:engine_model_name] %><br /></td>
@@ -37,9 +37,9 @@
       <th>ステータス</th>
       <th>エンジン型式</th>
       <th>エンジンNo.</th>
-      <% if current_user.yesOffice? || current_user.systemAdmin?%>
+      <!-- if current_user.yesOffice? || current_user.systemAdmin?-->
         <th>管轄</th>
-      <% end %>
+      <!-- end -->
       <th>返却日</th>
       <th>受領日</th>
       <th>サスペンド</th>
@@ -59,9 +59,9 @@
         <td class="status_col"><%= engine.status.name %></td>
         <td><%= engine.engine_model_name	 %></td>
         <td><%= engine.serialno %></td>
-        <% if current_user.yesOffice? || current_user.systemAdmin? %>
+        <!-- if current_user.yesOffice? || current_user.systemAdmin?-->
           <td><%= engine.company.name unless engine.company.blank? %></td>
-        <% end %>
+        <!-- end -->
         <td><%= engine.current_order_as_old.returning_date unless engine.current_order_as_old.nil? %></td>
         <td><%= engine.current_repair.arrive_date unless engine.current_repair.nil? %></td>
         <td><%= display_suspended_or_not(engine) %></td>
