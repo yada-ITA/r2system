@@ -95,7 +95,7 @@
     <%=  @engineorder.issue_no %>
   </div>
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title, class: "need-label" %><br>
     <%= f.text_field :title %>
   </div>
 <br>
@@ -105,7 +105,7 @@
     <%= f.date_select :order_date, :use_month_numbers => true, :start_year => 2005 %>
   </div>
   <div class="field">
-    <%= f.label :sales_amount %><br>
+    <%= f.label :sales_amount, class: "need-label" %><br>
     <%= f.text_field :sales_amount, :value=>number_with_delimiter(@engineorder.sales_amount), :autocomplete=>'off', :style=>"text-align:right;""ime-mode:disabled;" %> 円
   </div>
 <br>
@@ -116,23 +116,23 @@
     <%= f.fields_for :install_place do |p| %>
       <table>
         <tr>
-          <td>〒</td>
+          <td><%= p.label :postcode, Engineorder.human_attribute_name("install_place.postcode") %></td>
           <td><%= p.text_field :postcode , :size => 8, :disabled=> false %></td>
         </tr>
         <tr>
-          <td>住所</td>
-          <td><%= p.text_field :address , :size => 40, :disabled=> false  %></td>
+          <td><%= p.label :address, Engineorder.human_attribute_name("install_place.address") %></td>
+          <td><%= p.text_field :address , :size => 40 , :disabled=> false  %></td>
         </tr>
         <tr>
-          <td>設置先名</td>
-          <td><%= p.text_field :name , :size => 40, :disabled=> false %></td>
+          <td><%= p.label :name, Engineorder.human_attribute_name("install_place.name"), class: "need-label" %></td>
+          <td><%= p.text_field :name , :size => 40 , :disabled=> false %></td>
         </tr>
         <tr>
-          <td>担当者</td>
-          <td><%= p.text_field :destination_name , :size => 20, :disabled=> false %></td>
+          <td><%= p.label :destination_name, Engineorder.human_attribute_name("install_place.destination_name") %></td>
+          <td><%= p.text_field :destination_name , :size => 20 , :disabled=> false %></td>
         </tr>
         <tr>
-          <td>TEL</td>
+          <td><%= p.label :phone_no, Engineorder.human_attribute_name("install_place.phone_no") %></td>
           <td><%= p.text_field :phone_no , :size => 15, :disabled=> false %></td>
         </tr>
       </table>
@@ -142,7 +142,7 @@
 
   <!-- 元請 -->
   <div class="field">
-    <%= f.label :orderer %><br>
+    <%= f.label :orderer, class: "need-label" %><br>
     <%= f.text_field :orderer %>
   </div>
 
@@ -157,26 +157,26 @@
       <%= f.fields_for :sending_place do |p| %>
       <table>
         <tr>
-          <td>〒</td>
+          <td><%= p.label :postcode, Engineorder.human_attribute_name("sending_place.postcode"), class: "need-label" %></td>
           <td><%= p.text_field :postcode , :size => 8, :disabled=> disabled_data[:sending_place], :id => :sending_postcode %></td>
         </tr>
         <tr>
-          <td>住所</td>
+          <td><%= p.label :address, Engineorder.human_attribute_name("sending_place.address"), class: "need-label" %></td>
           <td><%= p.text_field :address , :size => 40 , :disabled=> disabled_data[:sending_place], :id => :sending_address %></td>
         </tr>
         <tr id="select_sending_cell" >
-          <td>宛先</td>
+          <td><%= p.label :name, Engineorder.human_attribute_name("sending_place.name"), class: "need-label" %></td>
           <td >
             <!-- f.collection_select( :sending_place_id, Place.where(:company_id => current_user.company_id), :id, :name, options = {:include_blank => true, :id => :sending_place_list, :size => 40 },html_options = {:onchange => 'placeChanged(\'sending\')', :id => :select_sending }  ) -->
-            <%= p.text_field :name, :size => 40, :id => :sending_name %>
+            <td><%= p.text_field :name , :size => 40 , :disabled=> disabled_data[:sending_place] %></td>
           </td>
         </tr>
         <tr>
-          <td>担当者</td>
+          <td><%= p.label :destination_name, Engineorder.human_attribute_name("sending_place.destination_name"), class: "need-label" %></td>
           <td><%= p.text_field :destination_name , :size => 20 , :disabled=> disabled_data[:sending_place], :id => :sending_destination_name  %></td>
         </tr>
         <tr>
-          <td>TEL</td>
+          <td><%= p.label :phone_no, Engineorder.human_attribute_name("sending_place.phone_no"), class: "need-label" %></td>
           <td><%= p.text_field :phone_no , :size => 15, :disabled=> disabled_data[:sending_place], :id => :sending_phone_no %></td>
         </tr>
       </table>
@@ -230,7 +230,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :time_of_running %><br>
+    <%= f.label :time_of_running, class: "need-label" %><br>
     <%= f.number_field :time_of_running,:disabled=> disabled_data[:time_of_running] %>
   </div>
   <div class="field">

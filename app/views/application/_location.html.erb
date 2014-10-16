@@ -1,4 +1,9 @@
-  <%= f.label (attr_name + "_id").to_sym %><br>
+<% if local_variables.include?(:mandatory) && mandatory %>
+  <%= f.label (attr_name + "_id").to_sym, class: "need-label" %>
+<% else %>
+  <%= f.label (attr_name + "_id").to_sym %>
+<% end %>
+<br>
 
   <table>
     <tr><td rowspan="5" valign="top">
