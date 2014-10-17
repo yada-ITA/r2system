@@ -19,12 +19,12 @@
   </div>
   <br>
   <div class="field">
-    <%= f.label :competitor_code %><br>
+    <%= f.label :competitor_code , :class=> "need-label"%><br>
     <%= f.text_field :competitor_code %>
   </div>
   <br>
   <div class="field">
-    <%= f.label :purachase_price %><br>
+    <%= f.label :purachase_price , :class=> "need-label" %><br>
     <%= f.text_field :purachase_price, :value=>number_with_delimiter(@repair.purachase_price), :autocomplete=>'off', :style=>"text-align:right;""ime-mode:disabled;"%> 円
     </div>
   <br> 
