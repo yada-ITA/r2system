@@ -92,6 +92,24 @@ ja:
         old_engine_model_name: 返却エンジン型式
         old_serialno: '返却エンジンS/#'
         sales_amount: 売上金額（見込）
+      engineorder/install_place:
+        postcode: 〒
+        address: 住所
+        phone_no: TEL
+        name: 設置先名
+        destination_name: 担当者
+      engineorder/sending_place:
+        postcode: 〒
+        address: 住所
+        phone_no: TEL
+        name: 宛先
+        destination_name: 担当者
+      engineorder/old_engine:
+        engine_model_name: エンジン型式
+        serialno: エンジンNo.
+      engineorder/new_engine:
+        engine_model_name: エンジン型式
+        serialno: エンジンNo.
       place:
         name: 会社名
         category: 分類
@@ -99,12 +117,6 @@ ja:
         address: 住所
         phone_no: 電話番号
         destination_name: 宛先
-      engineorder/old_engine:
-        engine_model_name: 返却エンジンのエンジン型式
-        serialno: 返却エンジンのエンジンNo.
-      engineorder/new_engine:
-        engine_model_name: 新規エンジンのエンジン型式
-        serialno: 新規エンジンのエンジンNo.
       charge:
         charge_date: 振替日
         charge_comment: 振替コメント

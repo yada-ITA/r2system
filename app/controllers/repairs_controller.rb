@@ -97,25 +97,7 @@ class RepairsController < ApplicationController
   # GET /repairs/1/edit
   # ステータスでレンダリング先を変える。
   def edit
-    # エンジンが仕入済みの場合
-    if @repair.paid?
-      render :template => "repairs/purchase"
-    else
-      case
-        #エンジンが受領前の場合
-      when @repair.engine.before_arrive?
-        render :templathe => "repairs/returning"
-      when @repair.engine.before_repair?
-        #エンジンが整備前状態の場合、整備前
-        render :template => "repairs/engineArrived"
-      when @repair.engine.under_repair?
-        #エンジンが整備中の場合
-        render :template => "repairs/repairStarted"
-      when @repair.engine.finished_repair?
-        #エンジンが整備完了(完成品状態)の場合、
-        render :template => "repairs/repairFinished"
-      end
-    end
+    render_on_status
   end
 
   # POST /repairs
@@ -191,7 +173,8 @@ class RepairsController < ApplicationController
         format.html { redirect_to @repair, notice: t("controller_msg.repair_updated") }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+
+        format.html { render_on_button }
         format.json { render json: @repair.errors, status: :unprocessable_entity }
       end
     end
@@ -522,6 +505,51 @@ class RepairsController < ApplicationController
       end
     end
   end
+
+
+  #render先をエンジンステータの状況によって変更する。
+  def render_on_status
+    if @repair.paid?
+      render :template => "repairs/purchase"
+    else
+      case
+        #エンジンが受領前の場合
+      when @repair.engine.before_arrive?
+        render :templathe => "repairs/returning"
+      when @repair.engine.before_repair?
+        #エンジンが整備前状態の場合、整備前
+        render :template => "repairs/engineArrived"
+      when @repair.engine.under_repair?
+        #エンジンが整備中の場合
+        render :template => "repairs/repairStarted"
+      when @repair.engine.finished_repair?
+        #エンジンが整備完了(完成品状態)の場合、
+        render :template => "repairs/repairFinished"
+      end
+    end
+  end
+
+  #render先を押下されたの状況によって変更する。
+  def render_on_button
+    case
+    #受領時 → 受領画面
+    when params[:commit] == t('views.buttun_arrived')
+      render :template => "repairs/engineArrived"
+    # 整備依頼時 → 整備依頼画面
+    when params[:commit] == t('views.buttun_repairOrdered')
+      render :template => "repairs/repairOrder"
+    # 整備開始時 → 整備開始画面
+    when params[:commit] == t('views.buttun_repairStarted')
+      render :template => "repairs/repairStarted"
+    # 整備完了時　→ 整備完了画面
+    when params[:commit] == t('views.buttun_repairFinished')
+        render :template => "repairs/repairFinished"
+    #　仕入登録時　→ 仕入登録画面
+    when params[:commit] == t('views.buttun_repairpurchase')
+        render :template => "repairs/purchase"  
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
