@@ -29,7 +29,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title, class: "need-label" %><br>
     <%= f.text_field :title %>
   </div>
 
@@ -45,7 +45,7 @@
     <%= f.fields_for :new_engine do |engine_form| %>
       <table>
         <tr>
-          <td><%= Engine.human_attribute_name "engine_model_name" %></td>
+          <td><%= engine_form.label :engine_model_name, Engineorder.human_attribute_name("new_engine.engine_model_name"), class: "need-label" %></td>
           <td>
             <% if @engineorder.new_engine && !@engineorder.new_engine.engine_model_name.blank? %>
               <% col = [@engineorder.new_engine] + Engine.completed.to_a %>
@@ -56,7 +56,7 @@
           </td>
         </tr>
         <tr>
-          <td><%= Engine.human_attribute_name "serialno" %></td>
+          <td><%= engine_form.label :serialno, Engineorder.human_attribute_name("new_engine.serialno"), class: "need-label" %></td>
           <td>
             <% if @engineorder.new_engine && !@engineorder.new_engine.serialno.blank? %>
               <% col = [@engineorder.new_engine] + Engine.completed.where(engine_model_name: @engineorder.new_engine.engine_model_name).to_a %>
@@ -71,7 +71,7 @@
   </div>
 
   <div class="field">
-    <%= render "location", {f: f, attr_name: "returning_place", location: @engineorder.returning_place ,disabled_info: false} %>
+    <%= render "location", {f: f, attr_name: "returning_place", location: @engineorder.returning_place ,disabled_info: false, mandatory: true } %>
   </div>
 <br>
   <div class="actions">
@@ -109,7 +109,7 @@
 
 
   <div class="field">
-    <%= f.label :time_of_running %><br>
+    <%= f.label :time_of_running, class: "need-label" %><br>
     <%= f.number_field :time_of_running ,:disabled=> disabled_data[:time_of_running]%>
   </div>
   <div class="field">
@@ -136,28 +136,28 @@
 
 <!-- のちほど別erbに切り出す。-->
   <div class="field">
-    <%= f.label :install_place_id %>
+    <%= f.label :install_place_id, class: "need-label" %>
     <%= f.fields_for :install_place do |p| %>
       <table>
         <tr>
-          <td>〒</td>
+          <td><%= p.label :postcode, Engineorder.human_attribute_name("install_place.postcode") %></td>
           <td><%= p.text_field :postcode , :size => 8, :disabled=> disabled_data[:install_place] %></td>
         </tr>
         <tr>
-          <td>住所</td>
+          <td><%= p.label :address, Engineorder.human_attribute_name("install_place.address") %></td>
           <td><%= p.text_field :address , :size => 40 , :disabled=> disabled_data[:install_place]  %></td>
         </tr>
         <tr>
-          <td>TEL</td>
-          <td><%= p.text_field :phone_no , :size => 15, :disabled=> disabled_data[:install_place]   %></td>
-        </tr>
-        <tr>
-          <td>設置先名</td>
+          <td><%= p.label :name, Engineorder.human_attribute_name("install_place.name"), class: "need-label" %></td>
           <td><%= p.text_field :name , :size => 20 , :disabled=> disabled_data[:install_place] %></td>
         </tr>
         <tr>
-          <td>担当者</td>
+          <td><%= p.label :destination_name, Engineorder.human_attribute_name("install_place.destination_name") %></td>
           <td><%= p.text_field :destination_name , :size => 20 , :disabled=> disabled_data[:install_place] %></td>
+        </tr>
+         <tr>
+          <td><%= p.label :phone_no, Engineorder.human_attribute_name("install_place.phone_no") %></td>
+          <td><%= p.text_field :phone_no , :size => 15, :disabled=> disabled_data[:install_place]   %></td>
         </tr>
       </table>
     <% end %>
@@ -167,7 +167,7 @@
 
 
   <div class="field">
-    <%= f.label :orderer %><br>
+    <%= f.label :orderer, class: "need-label" %><br>
     <%= f.text_field :orderer, :disabled=> disabled_data[:orderer]%>
   </div>
 
@@ -178,24 +178,24 @@
     <%= f.fields_for :sending_place do |p| %>
       <table>
         <tr>
-          <td>〒</td>
+          <td><%= p.label :postcode, Engineorder.human_attribute_name("sending_place.postcode"), class: "need-label" %></td>
           <td><%= p.text_field :postcode , :size => 8, :disabled=> disabled_data[:sending_place] %></td>
         </tr>
         <tr>
-          <td>住所</td>
+          <td><%= p.label :address, Engineorder.human_attribute_name("sending_place.address"), class: "need-label" %></td>
           <td><%= p.text_field :address , :size => 40 , :disabled=> disabled_data[:sending_place]  %></td>
         </tr>
         <tr>
-          <td>TEL</td>
-          <td><%= p.text_field :phone_no , :size => 15, :disabled=> disabled_data[:sending_place]   %></td>
-        </tr>
-        <tr>
-          <td>宛先</td>
+          <td><%= p.label :name, Engineorder.human_attribute_name("sending_place.name"), class: "need-label" %></td>
           <td><%= p.text_field :name , :size => 20 , :disabled=> disabled_data[:sending_place] %></td>
         </tr>
         <tr>
-          <td>担当者</td>
+          <td><%= p.label :destination_name, Engineorder.human_attribute_name("sending_place.destination_name"), class: "need-label" %></td>
           <td><%= p.text_field :destination_name , :size => 20 , :disabled=> disabled_data[:sending_place] %></td>
+        </tr>
+        <tr>
+          <td><%= p.label :phone_no, Engineorder.human_attribute_name("sending_place.phone_no"), class: "need-label" %></td>
+          <td><%= p.text_field :phone_no , :size => 15, :disabled=> disabled_data[:sending_place]   %></td>
         </tr>
       </table>
     <% end %>

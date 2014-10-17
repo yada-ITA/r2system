@@ -68,12 +68,12 @@ class EngineordersController < ApplicationController
 
 
  #検索条件統一化のため一旦コメントアウト
-    #物件名
+    #工事名称
       #if title = @searched[:title]
         #cond.push(arel[:title].matches "%#{title}%")
       #end
 
-    #物件名
+    #工事名称
       #if name = @searched[:name]
         #place = Place.where(arel_place[:name].matches "%#{name}%").pluck(:id)
         #cond.push(arel[:install_place_id].in place)
@@ -226,7 +226,6 @@ class EngineordersController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render_on_status }
-        # format.html { render action: 'edit' }
         format.json { render json: @engineorder.errors, status: :unprocessable_entity }
       end
     end

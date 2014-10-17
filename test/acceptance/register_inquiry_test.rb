@@ -13,8 +13,8 @@ class RegisterInquiryTest < AcceptanceTest
     # 3. 引合登録画面を開く
     click_link "新規引合"
     save_screenshot "RegisterInquiryTest1-03.png"
-    # 4. 物件名を入力する
-    fill_in "物件名", with: "物件1"
+    # 4. 工事名称を入力する
+    fill_in "工事名称", with: "物件1"
     save_screenshot "RegisterInquiryTest1-04.png"
     # 5. 返却エンジンの型式を選択する
     select "エンジンモデル名2", from: "engineorder_old_engine_attributes_engine_model_name"
@@ -50,8 +50,8 @@ class RegisterInquiryTest < AcceptanceTest
     # 3. 引合登録画面を開く
     click_link "新規引合"
     save_screenshot "RegisterInquiryTest2-03.png"
-    # 4. 物件名を入力する
-    fill_in "物件名", with: "物件1"
+    # 4. 工事名称を入力する
+    fill_in "工事名称", with: "物件1"
     save_screenshot "RegisterInquiryTest2-04.png"
     # 5. 返却エンジンの型式を選択する
     select "エンジンモデル名2", from: "engineorder_old_engine_attributes_engine_model_name"
@@ -78,8 +78,8 @@ class RegisterInquiryTest < AcceptanceTest
     # 3. 引合登録画面を開く
     click_link "新規引合"
     save_screenshot "RegisterInquiryTest3-03.png"
-    # 4. 物件名を入力する
-    fill_in "物件名", with: "物件1"
+    # 4. 工事名称を入力する
+    fill_in "工事名称", with: "物件1"
     save_screenshot "RegisterInquiryTest3-04.png"
     # 5. 返却エンジンの型式を選択*しない*
     # 6. 返却エンジンのシリアルNo.を入力*しない*
@@ -106,8 +106,8 @@ class RegisterInquiryTest < AcceptanceTest
     # 3. 引合登録画面を開く
     click_link "新規引合"
     save_screenshot "RegisterInquiryTest4-03.png"
-    # 4. 物件名を入力する
-    fill_in "物件名", with: "物件1"
+    # 4. 工事名称を入力する
+    fill_in "工事名称", with: "物件1"
     save_screenshot "RegisterInquiryTest4-04.png"
     # 5. 返却エンジンの型式を選択する
     select "エンジンモデル名1", from: "engineorder_old_engine_attributes_engine_model_name"
@@ -138,7 +138,7 @@ class RegisterInquiryTest < AcceptanceTest
     sign_in "KT000001", "password"
     click_link "流通情報一覧"
     click_link "新規引合"
-    fill_in "物件名", with: "物件1"
+    fill_in "工事名称", with: "物件1"
     select "エンジンモデル名1", from: "engineorder_old_engine_attributes_engine_model_name"
     fill_in "engineorder_old_engine_attributes_serialno", with: "00000001"
     click_button "引合登録"
@@ -185,8 +185,8 @@ class RegisterInquiryTest < AcceptanceTest
     # 3. エンジンモデルコード1 (00000001) 行の引合リンクをクリックする
     find(".table > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(8) > a:nth-child(1)").click
     save_screenshot "RegisterInquiryTest6-03.png"
-    # 4. 物件名を入力する
-    fill_in "物件名", with: "物件1"
+    # 4. 工事名称を入力する
+    fill_in "工事名称", with: "物件1"
     save_screenshot "RegisterInquiryTest6-04.png"
     # 5. 拠点を入力する
     select "YES名古屋営業", from: "select_branch"
@@ -222,8 +222,8 @@ class RegisterInquiryTest < AcceptanceTest
     # 3. エンジンモデルコード1 (00000001) 行の引合リンクをクリックする
     find(".table > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(8) > a:nth-child(1)").click
     save_screenshot "RegisterInquiryTest7-03.png"
-    # 4. 物件名を入力する
-    fill_in "物件名", with: "物件1"
+    # 4. 工事名称を入力する
+    fill_in "工事名称", with: "物件1"
     save_screenshot "RegisterInquiryTest7-04.png"
     # 5. 拠点を入力する
     select "YES名古屋営業", from: "select_branch"

@@ -165,7 +165,7 @@ class ScenarioTest < AcceptanceTest
     # 5.3. 引合登録画面を開く
     click_link "新規引合"
     save_screenshot "scenario1-5_3_1.png"
-    fill_in "物件名", with: "ぶっけんめい"
+    fill_in "工事名称", with: "ぶっけんめい"
     select "西宮戎リペア", from: "engineorder[branch_id]"           # 拠点
     select "法華倶楽部", from: "engineorder[install_place_id]"      # 設置先
     comment = "ちょっと調子がおかしいので交換してください。"
@@ -208,7 +208,7 @@ class ScenarioTest < AcceptanceTest
     # 6.3. 受注登録画面を開く
     click_link "受注"
     save_screenshot "scenario1-6_3_1.png"
-    assert_equal "ぶっけんめい", find_field("物件名").value
+    assert_equal "ぶっけんめい", find_field("工事名称").value
     select "法華倶楽部", from: "engineorder[sending_place_id]" # 送付先
     save_screenshot "scenario1-6_3_2.png"
     click_button "受注登録"
