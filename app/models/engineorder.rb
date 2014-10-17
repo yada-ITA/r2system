@@ -1,3 +1,4 @@
+#encoding:utf-8
 class Engineorder < ActiveRecord::Base
   #Association
   # engine.status と同様に、DB スキーマを変更せずに order.status で
