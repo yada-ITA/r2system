@@ -19,9 +19,12 @@ class Engineorder < ActiveRecord::Base
   belongs_to :install_place,   :class_name => 'Place' , foreign_key: 'install_place_id'
   accepts_nested_attributes_for :install_place
 
-  # 場所（送付先）
+  # 場所（手入力送付先）
   belongs_to :sending_place,   :class_name => 'Place' , foreign_key: 'sending_place_id'
   accepts_nested_attributes_for :sending_place
+
+  # 場所（送付先マスタ）
+  belongs_to :sending_place_m,   :class_name => 'Sendingplace' , foreign_key: 'sending_place_m_id'
 
 
   belongs_to :registered_user, :class_name => 'User' 
