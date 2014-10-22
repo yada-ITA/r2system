@@ -19,9 +19,12 @@ class Engineorder < ActiveRecord::Base
   belongs_to :install_place,   :class_name => 'Place' , foreign_key: 'install_place_id'
   accepts_nested_attributes_for :install_place
 
-  # 場所（送付先）
+  # 場所（手入力送付先）
   belongs_to :sending_place,   :class_name => 'Place' , foreign_key: 'sending_place_id'
   accepts_nested_attributes_for :sending_place
+
+  # 場所（送付先マスタ）
+  belongs_to :sending_place_m,   :class_name => 'Sendingplace' , foreign_key: 'sending_place_m_id'
 
 
   belongs_to :registered_user, :class_name => 'User' 
@@ -45,19 +48,6 @@ class Engineorder < ActiveRecord::Base
 
   accepts_nested_attributes_for :old_engine
   accepts_nested_attributes_for :new_engine
-
-  validate :presence_sending_info
-  
-  def presence_sending_info
-    if self.ordered?
-      if self.sending_place.name.blank?
-        errors.add(:sending_place_id, :empty)
-      end
-      #if self.sending_comment.blank?
-      #  errors.add(:sending_comment, :empty)
-      #end
-    end
-  end
 
   #
   # 必須項目のバリデーション (引合登録)
@@ -88,30 +78,35 @@ class Engineorder < ActiveRecord::Base
   def validate_ordered_fields
     # 受注登録時は引合登録時の必須項目も必須
     validate_inquiry_fields
-    # 送付先 - 会社名
-    if sending_place.name.blank?
-      sending_place.errors.add_on_blank(:name)
-      errors.add("sending_place.name", "を入力してください")
-    end
-    # 送付先 - 郵便番号
-    if sending_place.postcode.blank?
-      sending_place.errors.add_on_blank(:postcode)
-      errors.add("sending_place.postcode", "を入力してください")
-    end
-    # 送付先 - 住所
-    if sending_place.address.blank?
-      sending_place.errors.add_on_blank(:address)
-      errors.add("sending_place.address", "を入力してください")
-    end
-    # 送付先 - TEL
-    if sending_place.phone_no.blank?
-      sending_place.errors.add_on_blank(:phone_no)
-      errors.add("sending_place.phone_no", "を入力してください")
-    end
-    # 送付先 - 宛名
-    if sending_place.destination_name.blank?
-      sending_place.errors.add_on_blank(:destination_name)
-      errors.add("sending_place.destination_name", "を入力してください")
+    #
+    # 送付先が手入力の時
+    #
+    if self.sending_place_m.blank?      
+      # 送付先 - 会社名   
+      if sending_place.name.blank?
+        sending_place.errors.add_on_blank(:name)
+        errors.add("sending_place.name", "を入力してください")
+      end
+      # 送付先 - 郵便番号
+      if sending_place.postcode.blank?
+        sending_place.errors.add_on_blank(:postcode)
+        errors.add("sending_place.postcode", "を入力してください")
+      end
+      # 送付先 - 住所
+      if sending_place.address.blank?
+        sending_place.errors.add_on_blank(:address)
+        errors.add("sending_place.address", "を入力してください")
+      end
+      # 送付先 - TEL
+      if sending_place.phone_no.blank?
+        sending_place.errors.add_on_blank(:phone_no)
+        errors.add("sending_place.phone_no", "を入力してください")
+      end
+      # 送付先 - 宛名
+      if sending_place.destination_name.blank?
+        sending_place.errors.add_on_blank(:destination_name)
+        errors.add("sending_place.destination_name", "を入力してください")
+      end
     end
     # 売上金額 (見込み)
     errors.add_on_blank(:sales_amount) if sales_amount.blank?
@@ -213,7 +208,7 @@ class Engineorder < ActiveRecord::Base
     return self.new_engine.current_repair
   end
 
-  #現時点での発行Noの生成 (年月-枝番3桁)
+  # 現時点での発行Noの生成 (年月-枝番3桁)
   def self.createIssueNo
     issuedate = Date.today.strftime("%Y%m") 
     maxseq = self.where("issue_no like ?", issuedate + "%").max()
@@ -227,12 +222,42 @@ class Engineorder < ActiveRecord::Base
 
   end
 
-
+  # ----------------- 導出項目関連メソッド集 ------------------ #
   #試運転日から運転年数を求める。(運転年数は、切り上げ)
   def calcRunningYear
     return  ((Date.today - self.day_of_test)/365).ceil unless self.day_of_test.nil? 
   end
 
+  # 送付先の情報を返す
+  # マスタからの選択か手入力かを判断して、値を返す。
+  def sending_place_object
+    if self.sending_place_m.nil?
+      return self.sending_place
+    else
+      return self.sending_place_m      
+    end
+  end
+  # 送付先名
+  def sending_name
+    return sending_place_object.name
+  end
+  # 送付先郵便番号
+  def sending_postcode
+    return sending_place_object.postcode
+  end
+  # 送付先住所
+  def sending_address
+    return sending_place_object.address
+  end
+  # 送付先担当者
+  def sending_destination_name
+    return sending_place_object.destination_name
+  end
+  # 送付先電話番号
+  def sending_phone_no
+    return sending_place_object.phone_no
+  end
+  
   # 整備オブジェクトを受領前の状態で新規作成する
   def createRepair
     repair = Repair.new
@@ -305,6 +330,7 @@ class Engineorder < ActiveRecord::Base
       # 受注時に新規入力した項目をクリア(受注日、送付先、送付コメント)
       self.order_date = nil
       self.sending_place_id = nil
+      self.sending_place_m_id = nil
       self.sending_comment = nil
       self.sales_amount = nil
       self.save!
@@ -407,10 +433,6 @@ class Engineorder < ActiveRecord::Base
       self[:time_of_running] = nil
     end
   end
-
-
-
-
 
   def old_engine_attributes=(attrs)
     self.old_engine = Engine.find_or_initialize_by(id: attrs.delete(:id))
