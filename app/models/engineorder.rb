@@ -404,6 +404,11 @@ class Engineorder < ActiveRecord::Base
       #(このときの振替情報は、新エンジンの直近の整備より取得)
       old_engine.company = new_engine.last_repair.charge.branch
       old_engine.save!
+      
+      # 旧エンジンに関する仕掛かり中の整備を削除する
+      if repair = old_engine.current_repair
+        repair.delete
+      end
 
       # エンジンオーダの状態を "出荷済み" に戻す
       self.status = Businessstatus.of_shipped

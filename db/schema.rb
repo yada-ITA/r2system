@@ -186,9 +186,9 @@ ActiveRecord::Schema.define(version: 20141021013527) do
     t.string   "userid"
     t.string   "name"
     t.string   "category"
+    t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "company_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
