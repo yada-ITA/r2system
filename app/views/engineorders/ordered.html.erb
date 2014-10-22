@@ -1,70 +1,75 @@
 <%= javascript_include_tag "location" %>
 
 <script type="text/javascript">
-<!--
   // 送付先のデフォルトは手入力
-  //var ready;
-  //ready = function(){
-  //alert(document.getElementById('hidden_sending_place').value);
-  //  if(document.getElementById('hidden_sending_place').value == '') {
-  //    document.getElementById('hand').checked  = true;
-  //    document.getElementById('master').checked  = false;
-  //    sending_place_changed( 'hand' );
-    //alert('hand');
-  //    }
-  //  else {
-  //    document.getElementById('master').checked  = true;
-  //    document.getElementById('hand').checked  = false;
-  //    sending_place_changed( 'master' );
-  //alert('master');
-  //  };
-  //  };
+  var ready;
+  ready = function(){
+    //alert(document.getElementById('hidden_sending_place_m').value);
+    if(document.getElementById('hidden_sending_place_m').value == '') {
+      document.getElementById('hand').checked  = true;
+      document.getElementById('master').checked  = false;
+      
+      document.getElementById('sending_name').style.display = '';
+      document.getElementById('select_sending').style.display = 'none';
+
+      //sending_place_changed( 'hand' );
+      //alert('hand');
+      }
+    else {
+      document.getElementById('master').checked  = true;
+      document.getElementById('hand').checked  = false;
+      sending_place_changed( 'master' );
+      //alert('master');
+    };
+  };
   
-  //$(document).ready(ready);
-  //$(document).on('page:load', ready);
+  $(document).ready(ready);
+  $(document).on('page:load', ready);
 
-  // 送付先を新規登録と既存からの選択の2種類選べるようにする
-  //function sending_place_changed( mode ) {
-  // 
+  // 送付先を「手入力」と「送付先マスタからの選択」の２種類選べるようにする
+  function sending_place_changed( mode ) {
+   
+  if (mode == 'hand'){
     
-  //  if (mode == 'hand'){
+    // 新規登録の場合
+    document.getElementById('sending_name').style.display = '';
+    document.getElementById('select_sending').style.display = 'none';
+      
+    document.getElementById('sending_name').disabled     = false;
+    document.getElementById('sending_postcode').disabled = false;
+    document.getElementById('sending_address').disabled  = false;
+    document.getElementById('sending_phone_no').disabled = false;
+    document.getElementById('sending_destination_name').disabled = false;
+    document.getElementById('sending_company').disabled = false;
+      
+    clear_hand_fields();
     
-      // 新規登録の場合
-  //  document.getElementById('sending_name').style.display = '';
-  //  document.getElementById('select_sending').style.display = 'none';
-      
-  //  document.getElementById('sending_name').disabled     = false;
-  //  document.getElementById('sending_postcode').disabled = false;
-  //  document.getElementById('sending_address').disabled  = false;
-  //  document.getElementById('sending_phone_no').disabled = false;
-  //  document.getElementById('sending_destination_name').disabled = false;
-  //  document.getElementById('sending_company').disabled = false;
-      
-  //  document.getElementById('sending_name').value = "";
-  //  document.getElementById('sending_postcode').value = "";
-  //  document.getElementById('sending_address').value = "";
-  //  document.getElementById('sending_phone_no').value = "";
-  //  document.getElementById('sending_destination_name').value = "";
+    }
+  if (mode == 'master'){
 
-  //  }
-  //if (mode == 'master'){
+    // 既存から選択の場合の場合
+    document.getElementById('sending_name').style.display = 'none'; 
+    document.getElementById('select_sending').style.display = '';
 
-      // 既存から選択の場合の場合
-  //  document.getElementById('sending_name').style.display = 'none'; 
-  //  document.getElementById('select_sending').style.display = '';
-
-  //  document.getElementById('sending_name').disabled     = true;
-  //  document.getElementById('sending_postcode').disabled = true;
-  //  document.getElementById('sending_address').disabled  = true;
-  //  document.getElementById('sending_phone_no').disabled = true;
-  //  document.getElementById('sending_destination_name').disabled = true;
-  //  document.getElementById('sending_company').disabled  = true;
-  // 
-  //  placeChanged('sending')
-  //  
-  //  }
-  //}
-//-->  
+    document.getElementById('sending_name').disabled     = true;
+    document.getElementById('sending_postcode').disabled = true;
+    document.getElementById('sending_address').disabled  = true;
+    document.getElementById('sending_phone_no').disabled = true;
+    document.getElementById('sending_destination_name').disabled = true;
+    document.getElementById('sending_company').disabled  = true;
+    
+    sendingPlaceChanged('sending')
+    
+    }
+  }
+  
+  function clear_hand_fields() {
+    document.getElementById('sending_name').value = "";
+    document.getElementById('sending_postcode').value = "";
+    document.getElementById('sending_address').value = "";
+    document.getElementById('sending_phone_no').value = "";
+    document.getElementById('sending_destination_name').value = "";
+    }
 </script>
 
 <h1>受注登録</h1>
@@ -147,14 +152,14 @@
   </div>
 
   <!-- 送付先 -->
-  <!-- f.hidden_field :sending_place_id, :name => :hidden_sending_place, :id => :hidden_sending_place -->
+  <%= f.hidden_field :sending_place_m_id, :name => :hidden_sending_place_m, :id => :hidden_sending_place_m %>
   <div class="field">
     <!-- Gem "need label"では対応できないので、直接クラスを設定しています -->
     <%= f.label :sending_place_id, :class => "need-label" %><br>
-    <!-- input type="radio" name="sending_place" value="hand"   checked onclick="javascript:sending_place_changed('hand');"  id="hand">手入力 -->
-    <!-- input type="radio" name="sending_place" value="master"         onclick="javascript:sending_place_changed('master');" id="master">マスタから選ぶ -->
-	
-      <%= f.fields_for :sending_place do |p| %>
+    <input type="radio" name="sending_place" value="hand"   onclick="javascript:sending_place_changed('hand');"   id="hand"  >手入力
+    <input type="radio" name="sending_place" value="master" onclick="javascript:sending_place_changed('master');" id="master">マスタから選ぶ
+    
+    <%= f.fields_for :sending_place do |p| %>
       <table>
         <tr>
           <td><%= p.label :postcode, Engineorder.human_attribute_name("sending_place.postcode"), class: "need-label" %></td>
@@ -167,8 +172,8 @@
         <tr id="select_sending_cell" >
           <td><%= p.label :name, Engineorder.human_attribute_name("sending_place.name"), class: "need-label" %></td>
           <td >
-            <!-- f.collection_select( :sending_place_id, Place.where(:company_id => current_user.company_id), :id, :name, options = {:include_blank => true, :id => :sending_place_list, :size => 40 },html_options = {:onchange => 'placeChanged(\'sending\')', :id => :select_sending }  ) -->
-            <td><%= p.text_field :name , :size => 40 , :disabled=> disabled_data[:sending_place] %></td>
+            <%= f.collection_select( :sending_place_m_id, Sendingplace.where(:branch_id => current_user.company_id), :id, :name, options = {:include_blank => true, :id => :sending_place_list, :size => 40 },html_options = {:onchange => 'sendingPlaceChanged(\'sending\')', :id => :select_sending }  ) %>
+            <%= p.text_field :name , :size => 30 , :disabled=> disabled_data[:sending_place], :id => :sending_name %>
           </td>
         </tr>
         <tr>

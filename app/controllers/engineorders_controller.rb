@@ -210,14 +210,6 @@ class EngineordersController < ApplicationController
                                            company: current_user.company)
     end
 
-    # 送付先が既登録からの選択の場合
-    puts params
-    unless params[:engineorder][:sending_place_attributes].nil?
-      if params[:engineorder][:sending_place_attributes].size == 1
-        params[:engineorder][:sending_place_attributes] = nil
-      end
-    end
-    
     respond_to do |format|
       if @engineorder.update(engineorder_params)
         # 受注オブジェクトの状況などから、単純な画面項目のセット以外の、各種編集を行う
@@ -413,13 +405,21 @@ class EngineordersController < ApplicationController
     # ★整備オブジェクトの会社コードは、何になるべき？
     #
 
-    # ここの if 文の並びも排他的な条件なので、case 文に変更しました。
     case
+    # 送付先の考慮
+    when params[:sending_place] == 'hand'
+      # 送付先が手入力からの選択の場合、（オーダー変更時に、前回の登録がマスタ選択だった場合を意識して、
+      # Sendingmasterクラスへのアソシエーションをnilにする
+      @engineorder.sending_place_m = nil
+      @engineorder.save
+
+    # ステータスの考慮
     when params[:commit] == t('views.buttun_ordered')
       # 受注登録からの更新の場合
       #旧エンジンのステータスを返却予定に変更する。
       @engineorder.old_engine.status = Enginestatus.of_about_to_return
       @engineorder.old_engine.save
+
     when params[:commit] == t('views.buttun_allocated')
       # 引当画面からの更新の場合
       # 新エンジンのステータスを出荷準備中に変更する。
@@ -470,7 +470,7 @@ class EngineordersController < ApplicationController
       # 引合登録時は旧エンジンの返却は確定していないので、受領前状態に遷移しない
       # @engineorder.old_engine.status = Enginestatus.of_about_to_return
       # @engineorder.old_engine.save
-    
+
     end
     
   end
@@ -567,7 +567,7 @@ class EngineordersController < ApplicationController
       :new_engine_id, :old_engine_id,
       :enginestatus_id,:invoice_no_new, :invoice_no_old, :day_of_test,
       :shipped_date, :shipped_comment, :returning_date, :returning_comment, :title,
-      :returning_place_id, :allocated_date, :sales_amount,
+      :returning_place_id, :allocated_date, :sales_amount, :sending_place_m_id,
       :install_place_attributes => [:id,:install_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy],
       :sending_place_attributes => [:id,:sending_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy, :company_id],
       :old_engine_attributes => [:id, :engine_model_name, :serialno],
