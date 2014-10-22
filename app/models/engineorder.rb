@@ -401,8 +401,14 @@ class Engineorder < ActiveRecord::Base
 
       # 旧エンジンの管轄を拠点に戻す
       #この際に、管轄情報として、振替時の情報をセットするように変更する
-      old_engine.company = old_engine.current_repair.charge.branch
+      #(このときの振替情報は、新エンジンの直近の整備より取得)
+      old_engine.company = new_engine.last_repair.charge.branch
       old_engine.save!
+      
+      # 旧エンジンに関する仕掛かり中の整備を削除する
+      if repair = old_engine.current_repair
+        repair.delete
+      end
 
       # エンジンオーダの状態を "出荷済み" に戻す
       self.status = Businessstatus.of_shipped

@@ -436,8 +436,8 @@ class EngineordersController < ApplicationController
       @engineorder.new_engine.save
       #振替を新規で登録する
       charge = Charge.new
-      charge.engine_id = @engineorder.new_engine.id
-      charge.repair_id = @engineorder.new_engine.current_repair.id
+      charge.engine = @engineorder.new_engine
+      charge.repair = @engineorder.new_engine.current_repair
       charge.branch = @engineorder.branch
       charge.charge_flg = false
       charge.save
