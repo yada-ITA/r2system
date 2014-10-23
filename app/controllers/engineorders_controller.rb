@@ -284,6 +284,8 @@ class EngineordersController < ApplicationController
     if @engineorder.new_engine.nil?
       @engineorder.new_engine = Engine.new
     end
+    # 新規エンジンの型式は、返却エンジンの型式と同一
+    @engineorder.new_engine.engine_model_name = @engineorder.old_engine.engine_model_name
   end
 
   # 出荷の処理
