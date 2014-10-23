@@ -268,6 +268,8 @@ class EngineordersController < ApplicationController
       render :template => "engineorders/allocated"
     when @engineorder.ordered?
       render :template => "engineorders/ordered"
+    when @engineorder.returned?
+      render :template => "engineorders/returning"
     end
   end
 
