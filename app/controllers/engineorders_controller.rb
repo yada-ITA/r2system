@@ -357,7 +357,7 @@ class EngineordersController < ApplicationController
       respond_to do |format|
         if @engineorder.undo_shipping
           # 取り消し成功時は、エンジンオーダの詳細画面にリダイレクトと同時に、振替を削除する。
-          Charge.delete_all(repair_id: @engineorder.new_engine.current_repair.id)
+          Charge.delete_all(repair_id: @engineorder.new_engine.last_repair.id)
 
           format.html { redirect_to @engineorder, notice: t("controller_msg.engineorder_shipping_undone") }
           format.json { head :no_content }
@@ -437,12 +437,15 @@ class EngineordersController < ApplicationController
       @engineorder.new_engine.company = @engineorder.branch
       @engineorder.new_engine.save
       #振替を新規で登録する
-      charge = Charge.new
-      charge.engine = @engineorder.new_engine
-      charge.repair = @engineorder.new_engine.current_repair
-      charge.branch = @engineorder.branch
-      charge.charge_flg = false
-      charge.save
+      #(対応する振替がある場合は、新たに作らない)
+      unless Charge.where(repair_id: @engineorder.new_engine.last_repair.id).present?
+        charge = Charge.new
+        charge.engine = @engineorder.new_engine
+        charge.repair = @engineorder.new_engine.last_repair
+        charge.branch = @engineorder.branch
+        charge.charge_flg = false
+        charge.save
+      end 
 
       # 出荷しようとしている新エンジンに関わる整備オブジェクトを取得する
       if repair = @engineorder.repair_for_new_engine
