@@ -7,7 +7,7 @@
 
   <table>
     <tr><td rowspan="5" valign="top">
-      <%= f.collection_select((attr_name + "_id").to_sym, Company.all, :id, :name, options = {:include_blank => true}, html_options = {:onchange => "selectionChanged(\"" + attr_name + "\")", :id => "select_" + attr_name , :disabled => disabled_info }  ) %>
+      <%= f.collection_select((attr_name + "_id").to_sym, local_variables.include?(:collection) ? collection : Company.all, :id, :name, options = {:include_blank => true}, html_options = {:onchange => "selectionChanged(\"" + attr_name + "\")", :id => "select_" + attr_name , :disabled => disabled_info }  ) %>
     </td></tr>
     <% if location.nil? %>
     <tr>
