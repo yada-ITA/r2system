@@ -37,6 +37,7 @@
       <th><%= Engine.human_attribute_name(:engine_model_name) %></th>
       <th><%= Engine.human_attribute_name(:serialno) %></th>
       <th><%= Repair.human_attribute_name(:purachase_price) %></th>
+      <th class="workregist"></th>
     </tr>
   </thead>
 
@@ -49,6 +50,7 @@
         <td><%= repair.engine.engine_model_name %></td>
         <td><%= repair.engine.serialno %></td>
         <td><%= number_with_delimiter(repair.purachase_price) %></td>
+        <td><%= link_to "戻し", undo_purchase_path(repair), style: "color:red;", confirm: t("controller_msg.repair_purchase_undoing?") %></td>
       </tr>
     <% end %>
   </tbody>
