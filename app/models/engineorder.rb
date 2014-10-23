@@ -128,6 +128,32 @@ class Engineorder < ActiveRecord::Base
     errors.empty?
   end
 
+  #
+  # 必須項目のバリデーション (出荷登録)
+  #
+  validate :validate_shipped_fields, if: ->(engine_order) { engine_order.shipped? }
+
+  def validate_shipped_fields
+    # 出荷登録時は引当登録時の必須項目も必須
+    validate_shipping_preparation_fields
+    # 送り状 No. (新エンジン)
+    errors.add_on_blank(:invoice_no_new) if invoice_no_new.blank?
+    errors.empty?
+  end
+
+  #
+  # 必須項目のバリデーション (返却登録)
+  #
+  validate :validate_returning_fields, if: ->(engine_order) { engine_order.returned? }
+
+  def validate_returning_fields
+    # 返却登録時は出荷登録時の必須項目も必須
+    validate_shipped_fields
+    # 送り状 No. (旧エンジン)
+    errors.add_on_blank(:invoice_no_old) if invoice_no_old.blank?
+    errors.empty?
+  end
+
   # 新エンジンをセットする
   # 独自の setNewEngine メソッドではなく、そのまま order.new_engine = engine と
   # 書けるように、ActiveRecord が定義する new_engine= メソッドを拡張しました。
