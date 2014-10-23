@@ -1,0 +1,46 @@
+<h1>送付先一覧</h1>
+
+<table class="table table-striped table-bordered table-condensed">
+  <thead>
+    <tr>
+      <% if current_user.yes? || current_user.systemAdmin?%>
+        <th>拠点</th>
+      <% end %>
+      <th>郵便番号</th>
+      <th>住所</th>
+      <th>送付先名</th>
+      <th>担当者</th>
+      <th>電話番号</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sendingplaces.each do |sendingplace| %>
+      <tr>
+        <% if current_user.yes? || current_user.systemAdmin?%>
+          <td><%= sendingplace.branch_name %></td>
+        <% end %>
+        <td><%= sendingplace.postcode %></td>
+        <td><%= sendingplace.address %></td>
+        <td><%= sendingplace.name %></td>
+        <td><%= sendingplace.destination_name %></td>
+        <td><%= sendingplace.phone_no %></td>
+        <td><%= link_to '詳細', sendingplace, class: "workregist_show"   %></td>
+        <td><%= link_to '編集', edit_sendingplace_path(sendingplace), class: "workregist_edit"   %></td>
+        <td><%= link_to '削除', sendingplace, method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: "workregist_del"   %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if current_user.yesBranch? %>
+  <%= link_to '新規送付先', new_sendingplace_path %>
+<br>
+<% end %>
+<br>
+<%= link_to t('views.link_back'), root_path %>
+

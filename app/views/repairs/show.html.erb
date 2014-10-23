@@ -97,13 +97,7 @@
   <% end %>
 
 <br><br>
-<% if current_user.yesOffice? || current_user.systemAdmin? %>
-  <% unless anchor_path =~ /#{unbilled_repairs_path}/ # ヤンマー未検収一覧から遷移した場合は編集不可 %>
-    <% if @repair.paid? && @repair.purachase_date >= previous_cutoff_date # 当月に仕入登録したものに限って修正可能 %>
-      <%= link_to t('views.link_edit'), edit_repair_path(@repair) %> |
-    <% end %>
-  <% end %>
-<% end %>
+
 <% if notice == t("controller_msg.repair_created") %>
   <%= link_to t('views.link_back'), anchor_path %>
 <% else %>

@@ -114,6 +114,8 @@ class EnginesController < ApplicationController
         format.json { render json: @engine.errors, status: :unprocessable_entity }
       end
     end
+    repair = @engine.createRepair
+    repair.save
   end
 
   # PATCH/PUT /engines/1

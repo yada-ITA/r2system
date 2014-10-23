@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141010072421) do
+ActiveRecord::Schema.define(version: 20141021013527) do
 
   create_table "businessstatuses", force: true do |t|
     t.string   "name"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20141010072421) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sales_amount"
+    t.integer  "sending_place_m_id"
   end
 
   create_table "engines", force: true do |t|
@@ -159,6 +160,17 @@ ActiveRecord::Schema.define(version: 20141010072421) do
   end
 
   add_index "repairs", ["company_id"], name: "index_repairs_on_company_id"
+
+  create_table "sendingplaces", force: true do |t|
+    t.integer  "branch_id"
+    t.string   "name"
+    t.string   "postcode"
+    t.string   "address"
+    t.string   "phone_no"
+    t.string   "destination_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

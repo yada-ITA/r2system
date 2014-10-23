@@ -65,17 +65,33 @@
         <td><%= repair.engine.engine_model_name %></td>
         <td><%= repair.engine.serialno %></td>
 
-
-
-
         <% if current_user.yes? %>
 
           <td class="workregist-wide">
           <% if repair.engine.before_arrive? %>
-          <%= link_to '受領', repair_arrived_path(repair), class: "workregist_work" %>
+            <Div Align="center">
+              <%= link_to '受領', repair_arrived_path(repair), class: "workregist_work" %>
+            </Div>
           <% else %>
-            受領済
+              受領済
           <% end %>
+
+        <% else %>
+
+         <td class="workregist-wide">
+          <% if repair.engine.before_arrive? and repair.engine.company_id == current_user.company_id %>
+            <Div Align="center">
+              <%= link_to '受領', repair_arrived_path(repair), class: "workregist_work" %>
+            </Div>
+          <% elsif repair.engine.before_arrive? and repair.engine.company_id != current_user.company_id %>
+          <% else %>
+              受領済
+          <% end %>
+           </td>
+
+        <% end %>
+
+        <% if current_user.yes? %>
 
           </td>
           <td class="workregist">
@@ -83,7 +99,7 @@
             <%= link_to '依頼', order_repair_path(repair) , class: "workregist_work" %>
             <% end %>
           </td>
-          
+
         <% end %>
 
         <td class="workregist">

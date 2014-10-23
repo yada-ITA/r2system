@@ -185,6 +185,16 @@ class Engine < ActiveRecord::Base
     status.id == Enginestatus.of_abolished.id
   end
 
+# 整備オブジェクトを受領前の状態で新規作成する
+  def createRepair
+    repair = Repair.new
+    repair.issue_no = Repair.createIssueNo
+    repair.issue_date = Date.today
+    repair.company_id = self.company_id
+    repair.engine_id = self.id
+    return repair
+  end
+
 #エンジンのCSVをインポートする
 def self.import(file)
   CSV.foreach(file.path, headers: true) do |row|
