@@ -71,7 +71,7 @@
   </div>
 
   <div class="field">
-    <%= render "location", {f: f, attr_name: "returning_place", location: @engineorder.returning_place ,disabled_info: false, mandatory: true } %>
+    <%= render "location", {f: f, attr_name: "returning_place", location: @engineorder.returning_place ,disabled_info: false, mandatory: true, collection: Company.tender } %>
   </div>
 <br>
   <div class="actions">
