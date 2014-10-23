@@ -203,7 +203,7 @@ repair_201408_15:
   finish_date: "2014-08-15"
   engine: engine7
   company: company2
-   construction_no: "CN000016"
+  construction_no: "CN000016"
   paymentstatus_id: <%= Paymentstatus::ID_UNPAID %>
 
 repair_201408_16:

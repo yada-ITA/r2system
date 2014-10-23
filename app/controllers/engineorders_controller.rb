@@ -170,7 +170,7 @@ class EngineordersController < ApplicationController
         format.html { redirect_to @engineorder, notice: t('controller_msg.engineorder_created') }
         format.json { render action: 'show', status: :created, location: @engineorder }
       else
-        format.html { render action: 'new' }
+        format.html { render_on_status }
         format.json { render json: @engineorder.errors, status: :unprocessable_entity }
       end
     end
