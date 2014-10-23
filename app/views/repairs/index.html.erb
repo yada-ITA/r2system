@@ -65,9 +65,6 @@
         <td><%= repair.engine.engine_model_name %></td>
         <td><%= repair.engine.serialno %></td>
 
-
-
-
         <% if current_user.yes? %>
 
           <td class="workregist-wide">
@@ -76,9 +73,8 @@
               <%= link_to '受領', repair_arrived_path(repair), class: "workregist_work" %>
             </Div>
           <% else %>
-              <FONT color="silver">受領済</FONT>
+              受領済
           <% end %>
-          </td>
 
         <% else %>
 
@@ -88,23 +84,29 @@
               <%= link_to '受領', repair_arrived_path(repair), class: "workregist_work" %>
             </Div>
           <% elsif repair.engine.before_arrive? and repair.engine.company_id != current_user.company_id %>
-            <Div Align="center">
-              <FONT color="silver">ー</FONT>
-            </Div>
           <% else %>
-              <FONT color="silver">受領済</FONT>
+              受領済
           <% end %>
-          </td>
-          
+           </td>
+
         <% end %>
 
         <% if current_user.yes? %>
+
+          </td>
+          <td class="workregist">
+            <% unless (repair.engine.finished_repair? or repair.engine.before_shipping? or repair.engine.after_shipped?) %>
+            <%= link_to '依頼', order_repair_path(repair) , class: "workregist_work" %>
+            <% end %>
+          </td>
+
+        <% end %>
+
         <td class="workregist">
           <% if repair.order_no.present? and (repair.engine.under_repair? or repair.engine.before_repair?) and repair.engine.company_id == current_user.company_id  %>
             <%= link_to '開始', start_repair_path(repair) , class: "workregist_work"%></td>                 
           <% end %>
         </td>
-        <% end %>
 
         <td class="workregist">
           <% if repair.engine.under_repair? and repair.engine.company_id == current_user.company_id %>
