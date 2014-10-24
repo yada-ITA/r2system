@@ -47,23 +47,14 @@
         <tr>
           <td><%= engine_form.label :engine_model_name, Engineorder.human_attribute_name("new_engine.engine_model_name"), class: "need-label" %></td>
           <td>
-            <% if @engineorder.new_engine && !@engineorder.new_engine.engine_model_name.blank? %>
-              <% col = [@engineorder.new_engine] + Engine.completed.to_a %>
-            <% else %>
-              <% col = Engine.completed.to_a %>
-            <% end %>
-            <%= engine_form.collection_select :engine_model_name, col.compact.uniq(&:engine_model_name), :engine_model_name, :engine_model_name, include_blank: true %>
+            <%= engine_form.text_field :engine_model_name, readonly: true %>
           </td>
         </tr>
         <tr>
           <td><%= engine_form.label :serialno, Engineorder.human_attribute_name("new_engine.serialno"), class: "need-label" %></td>
           <td>
-            <% if @engineorder.new_engine && !@engineorder.new_engine.serialno.blank? %>
-              <% col = [@engineorder.new_engine] + Engine.completed.where(engine_model_name: @engineorder.new_engine.engine_model_name).to_a %>
-            <% else %>
-              <% col = [] %>
-            <% end %>
-            <%= engine_form.collection_select :serialno, col.compact.uniq(&:serialno), :serialno, :serialno, {include_blank: true}, style: "width:100%" %>
+            <% col = [@engineorder.new_engine] + Engine.completed.where(engine_model_name: @engineorder.new_engine.engine_model_name).to_a %>
+            <%= engine_form.collection_select :serialno, col.compact.uniq(&:serialno), :serialno, :serialno, style: "width:100%" %>
           </td>
         </tr>
       </table>
