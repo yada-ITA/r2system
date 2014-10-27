@@ -167,17 +167,29 @@ end
               :style=>"color:red;",
               confirm: t("controller_msg.engineorder_ordered_undoing?")
     when Businessstatus::ID_SHIPPING_PREPARATION  # 出荷準備中
-      link_to t("views.link_allocated") + "の取り消し", undo_allocation_path(engineorder),
-              :style=>"color:red;",
-              confirm: t("controller_msg.engineorder_allocation_undoing?")
+      if current_user.yesOffice? || current_user.systemAdmin? 
+        link_to t("views.link_allocated") + "の取り消し", undo_allocation_path(engineorder),
+                :style=>"color:red;",
+                confirm: t("controller_msg.engineorder_allocation_undoing?")
+      else
+        "出荷準備中 → 受注 に戻したい場合は、システム管理者にご連絡ください。"
+      end
     when Businessstatus::ID_SHIPPED  # 出荷済
-      link_to t("views.link_shipped") + "の取り消し", undo_shipping_path(engineorder),
+      if current_user.yesOffice? || current_user.systemAdmin? 
+        link_to t("views.link_shipped") + "の取り消し", undo_shipping_path(engineorder),
               :style=>"color:red;",
               confirm: t("controller_msg.engineorder_shipping_undoing?")
+      else
+        "出荷済 → 出荷準備中 に戻したい場合は、システム管理者にご連絡ください。"
+      end
     when Businessstatus::ID_RETURNED  # 返却済
-      link_to t("views.link_returning") + "の取り消し", undo_returning_path(engineorder),
+      if current_user.yesOffice? || current_user.systemAdmin? 
+        link_to t("views.link_returning") + "の取り消し", undo_returning_path(engineorder),
               :style=>"color:red;",
               confirm: t("controller_msg.engineorder_returning_undoing?")
+      else
+        "返却済 → 返却予定 に戻したい場合は、システム管理者にご連絡ください。"
+      end
     when Businessstatus::ID_CANCELED  # キャンセル
       # TODO: 未実装
       # エンジンオーダをキャンセル状態にするユースケースは無い？
