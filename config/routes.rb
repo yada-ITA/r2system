@@ -65,6 +65,8 @@ R2::Application.routes.draw do
 
   get 'repairs/undo_purchase/:id' => 'repairs#undo_purchase', :as => :undo_purchase
 
+  get 'charges/undo_charge/:id' => 'charges#undo_charge', :as => :undo_charge
+
   #post 'companies' =>  'companies#show'
 
   resources :engineorders

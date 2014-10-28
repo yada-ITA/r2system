@@ -70,6 +70,23 @@ class ChargesController < ApplicationController
     end
   end
 
+
+  # PATCH/PUT /charges/1
+  # PATCH/PUT /charges/1.json
+  def undo_charge
+    set_charge
+    respond_to do |format|
+      if @charge.undo_charge
+        format.html { redirect_to @charge, notice: 'Charge was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @charge.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_charge
