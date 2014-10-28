@@ -327,6 +327,7 @@ class Engineorder < ActiveRecord::Base
       new_engine.save!
       # 引当時に新規入力した項目をクリア
       self.new_engine = nil
+      self.returning_place = nil
       self.allocated_date = nil
       self.save!
       true
