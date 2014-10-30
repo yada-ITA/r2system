@@ -39,6 +39,10 @@ ja:
         change_comment: コメント(交換理由)
         requestpaper: 整備依頼書
         checkpaper: 組立チェックシート
+        purachase_date: 仕入日
+        purachase_comment: コメント（仕入）
+        purachase_price: 仕入価格（税抜）
+        competitor_code: 他社部品コード
       user:
         userid: ログインＩＤ
         code: 社員コード
@@ -69,15 +73,61 @@ ja:
         desirable_delivery_date: 希望納期
         businessstatus_id: ステータス
         new_engine_id: 新規エンジン
+        new_engine: 新規エンジン
         old_engine_id: 返却エンジン
+        old_engine: 返却エンジン
         invoice_no: 送り状No
         returning_place_id: 返却先
         returning_comment: 返却コメント
         shipped_date: 出荷日
         shipped_comment: 出荷コメント
-        title: 物件名
+        title: 工事名称
         returning_date: 返却日 
         returning_comment: 返却コメント
         invoice_no_new: 送り状No（新エンジン）
         invoice_no_old: 送り状No（旧エンジン） 
         allocated_date: 引当日
+        new_engine_model_name: 新規エンジン型式
+        new_serialno: '新規エンジンS/#'
+        old_engine_model_name: 返却エンジン型式
+        old_serialno: '返却エンジンS/#'
+        sales_amount: 売上金額（見込）
+      engineorder/install_place:
+        postcode: 〒
+        address: 住所
+        phone_no: TEL
+        name: 設置先名
+        destination_name: 担当者
+      engineorder/sending_place:
+        postcode: 〒
+        address: 住所
+        phone_no: TEL
+        name: 宛先
+        destination_name: 担当者
+      engineorder/old_engine:
+        engine_model_name: エンジン型式
+        serialno: エンジンNo.
+      engineorder/new_engine:
+        engine_model_name: エンジン型式
+        serialno: エンジンNo.
+      place:
+        name: 会社名
+        category: 分類
+        postcode: 郵便番号
+        address: 住所
+        phone_no: 電話番号
+        destination_name: 宛先
+      charge:
+        charge_date: 振替日
+        charge_comment: 振替コメント
+      contactinfo:
+        mailaddr: 宛先
+        title: 件名
+        content: 本文
+      sendingplace:
+        name: 送付先名
+        postcode: 郵便番号
+        address: 住所
+        phone_no: 電話番号
+        destination_name: 担当者名
+        branch: 拠点

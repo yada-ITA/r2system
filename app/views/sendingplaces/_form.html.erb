@@ -1,0 +1,48 @@
+<%= form_for(@sendingplace) do |f| %>
+  <% if @sendingplace.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sendingplace.errors.count, "error") %> prohibited this sendingplace from being saved:</h2>
+
+      <ul>
+      <% @sendingplace.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if current_user.yes? || current_user.systemAdmin?%>
+    <div class="field">
+      <%= f.label :branch %><br>
+      <%= f.text_field :branch_name, :size => 20, :disabled => true %>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :postcode %><br>
+    <%= f.text_field :postcode, :size => 8 %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address, :size => 40 %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, :size => 40 %>
+  </div>
+  <div class="field">
+    <%= f.label :destination_name %><br>
+    <%= f.text_field :destination_name, :size => 20 %>
+  </div>
+  <div class="field">
+    <%= f.label :phone_no %><br>
+    <%= f.text_field :phone_no, :size => 15 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <div class="field">
+    <!-- f.label :branch_id --><br>
+    <%= f.hidden_field :branch_id %>
+  </div>
+
+<% end %>

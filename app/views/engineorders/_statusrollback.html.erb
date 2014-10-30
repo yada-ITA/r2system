@@ -1,0 +1,5 @@
+<br>
+<br>
+<% if current_user.yesOffice? || current_user.systemAdmin? || @engineorder.branch_id == current_user.company_id %>
+<div class="statusrollback">[<%= engineorders_undo_link(@engineorder) %>]</div>
+<% end %>

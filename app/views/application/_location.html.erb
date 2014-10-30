@@ -1,7 +1,13 @@
+<% if local_variables.include?(:mandatory) && mandatory %>
+  <%= f.label (attr_name + "_id").to_sym, class: "need-label" %>
+<% else %>
+  <%= f.label (attr_name + "_id").to_sym %>
+<% end %>
+<br>
+
   <table>
     <tr><td rowspan="5" valign="top">
-      <%= f.label (attr_name + "_id").to_sym %>
-      <%= f.collection_select((attr_name + "_id").to_sym, Company.all, :id, :name, options = {:include_blank => true}, html_options = {:onchange => "selectionChanged(\"" + attr_name + "\")", :id => "select_" + attr_name }  ) %>
+      <%= f.collection_select((attr_name + "_id").to_sym, local_variables.include?(:collection) ? collection : Company.all, :id, :name, options = {:include_blank => true}, html_options = {:onchange => "selectionChanged(\"" + attr_name + "\")", :id => "select_" + attr_name , :disabled => disabled_info }  ) %>
     </td></tr>
     <% if location.nil? %>
     <tr>
