@@ -1,29 +1,22 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Charge flg:</strong>
-  <%= @charge.charge_flg %>
+  <strong>振替状況</strong>
+  <%if @charge.charge_flg %>
+     振替後
+  <% else %>
+     振替前
+  <% end %>
 </p>
 
 <p>
-  <strong>Charge price:</strong>
+  <strong>振替日:</strong>
   <%= @charge.charge_date %>
 </p>
 
 <p>
-  <strong>Charge comment:</strong>
+  <strong>振替コメント:</strong>
   <%= @charge.charge_comment %>
 </p>
 
-<p>
-  <strong>Repair:</strong>
-  <%= @charge.repair %>
-</p>
 
-<p>
-  <strong>Engine:</strong>
-  <%= @charge.engine %>
-</p>
+<%= link_to t('views.link_back'), anchor_path %> 
 
-<%= link_to 'Edit', edit_charge_path(@charge) %> |
-<%= link_to 'Back', charges_path %>
