@@ -1,7 +1,7 @@
 class ChargesController < ApplicationController
   before_action :set_charge, only: [:show, :edit, :update, :destroy]
   after_action :anchor!, only: [:index]
-  after_action :keep_anchor!, only: [:show, :new, :edit, :create, :update]
+  after_action :keep_anchor!, only: [:show, :new, :edit, :create, :update, :undo_charge]
 
 
   # GET /charges

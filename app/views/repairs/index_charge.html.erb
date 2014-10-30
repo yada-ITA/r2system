@@ -62,7 +62,7 @@
           <% if  @searched["charge_flg"] == "before" %> 
             <%= link_to '振替', edit_charge_path(repair.charge) %>
           <% else %>
-            <%= link_to '取消', undo_charge_path(repair.charge) %>
+            <%= link_to '戻し', undo_charge_path(repair.charge) , style: "color:red;", confirm: "振替を取り消します、よろしいですか？" %>
           <% end %>
 
         </td>
