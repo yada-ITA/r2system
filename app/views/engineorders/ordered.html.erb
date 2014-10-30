@@ -35,12 +35,11 @@
     document.getElementById('sending_name').style.display = '';
     document.getElementById('select_sending').style.display = 'none';
       
-    document.getElementById('sending_name').disabled     = false;
-    document.getElementById('sending_postcode').disabled = false;
-    document.getElementById('sending_address').disabled  = false;
-    document.getElementById('sending_phone_no').disabled = false;
-    document.getElementById('sending_destination_name').disabled = false;
-    document.getElementById('sending_company').disabled = false;
+    document.getElementById('sending_name').readOnly     = false;
+    document.getElementById('sending_postcode').readOnly = false;
+    document.getElementById('sending_address').readOnly  = false;
+    document.getElementById('sending_phone_no').readOnly = false;
+    document.getElementById('sending_company').readOnly = false;
       
     clear_hand_fields();
     
@@ -51,12 +50,11 @@
     document.getElementById('sending_name').style.display = 'none'; 
     document.getElementById('select_sending').style.display = '';
 
-    document.getElementById('sending_name').disabled     = true;
-    document.getElementById('sending_postcode').disabled = true;
-    document.getElementById('sending_address').disabled  = true;
-    document.getElementById('sending_phone_no').disabled = true;
-    document.getElementById('sending_destination_name').disabled = true;
-    document.getElementById('sending_company').disabled  = true;
+    document.getElementById('sending_name').readOnly     = true;
+    document.getElementById('sending_postcode').readOnly = true;
+    document.getElementById('sending_address').readOnly  = true;
+    document.getElementById('sending_phone_no').readOnly = true;
+    document.getElementById('sending_company').readOnly  = true;
     
     sendingPlaceChanged('sending')
     
@@ -68,7 +66,6 @@
     document.getElementById('sending_postcode').value = "";
     document.getElementById('sending_address').value = "";
     document.getElementById('sending_phone_no').value = "";
-    document.getElementById('sending_destination_name').value = "";
     }
 </script>
 
@@ -177,7 +174,7 @@
           </td>
         </tr>
         <tr>
-          <td><%= p.label :destination_name, Engineorder.human_attribute_name("sending_place.destination_name"), class: "need-label" %></td>
+          <td><%= p.label :destination_name, Engineorder.human_attribute_name("sending_place.destination_name") %></td>
           <td><%= p.text_field :destination_name , :size => 20 , :disabled=> disabled_data[:sending_place], :id => :sending_destination_name  %></td>
         </tr>
         <tr>
