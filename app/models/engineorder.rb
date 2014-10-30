@@ -102,11 +102,6 @@ class Engineorder < ActiveRecord::Base
         sending_place.errors.add_on_blank(:phone_no)
         errors.add("sending_place.phone_no", "を入力してください")
       end
-      # 送付先 - 宛名
-      if sending_place.destination_name.blank?
-        sending_place.errors.add_on_blank(:destination_name)
-        errors.add("sending_place.destination_name", "を入力してください")
-      end
     end
     # 売上金額 (見込み)
     errors.add_on_blank(:sales_amount) if sales_amount.blank?
