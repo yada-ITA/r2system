@@ -61,12 +61,6 @@ class EngineordersController < ApplicationController
       cond.push(arel[:old_engine_id].in engineid)
     end
 
-   # ビジネスステータス（ステータス）
-    if businessstatus_id = @searched[:businessstatus_id]
-      cond.push(arel[:businessstatus_id].eq businessstatus_id)
-    end
-
-
  #検索条件統一化のため一旦コメントアウト
     #工事名称
       #if title = @searched[:title]
@@ -97,10 +91,49 @@ class EngineordersController < ApplicationController
 
     #end 
   
-    @engineorders = Engineorder.where(cond.reduce(&:and)).order(:updated_at).paginate(page: params[:page], per_page: 10)
+    @engineorders = Engineorder.where(cond.reduce(&:and))
+    case @searched[:businessstatus_id]
+    when Businessstatus::ID_INQUIRY.to_s
+      # ステータス == 引合 指定で検索した場合、引合日の降順でソート
+      @engineorders = @engineorders.where(status: Businessstatus.of_inquiry)
+                                   .order(:inquiry_date => :desc)
+    when Businessstatus::ID_ORDERED.to_s
+      # ステータス == 受注 指定で検索した場合、受注日の降順でソート
+      @engineorders = @engineorders.where(status: Businessstatus.of_ordered)
+                                   .order(:order_date => :desc)
+    when Businessstatus::ID_SHIPPING_PREPARATION.to_s
+      # ステータス == 出荷準備中 指定で検索した場合、引当日の降順でソート
+      @engineorders = @engineorders.where(status: Businessstatus.of_shipping_preparation)
+                                   .order(:allocated_date => :desc)
+    when Businessstatus::ID_SHIPPED.to_s
+      # ステータス == 出荷済 指定で検索した場合、出荷日の降順でソート
+      @engineorders = @engineorders.where(status: Businessstatus.of_shipped)
+                                   .order(:shipped_date => :desc)
+    when Businessstatus::ID_RETURNED.to_s
+      # ステータス == 返却済 指定で検索した場合、返却日の降順でソート
+      @engineorders = @engineorders.where(status: Businessstatus.of_returned)
+                                   .order(:returning_date => :desc)
+    when Businessstatus::ID_CANCELED.to_s
+      # ステータス == キャンセル 指定で検索した場合、最終レコード更新日の降順でソート
+      # (キャンセル時にレコード更新するので updated_at がキャンセル日になるはず)
+      @engineorders = @engineorders.where(status: Businessstatus.of_canceled)
+                                   .order(:updated_at => :desc)
+    else
+      @engineorders = Engineorder.order(
+        "businessstatus_id asc,
+         (case businessstatus_id
+          when #{Businessstatus::ID_INQUIRY} then inquiry_date
+          when #{Businessstatus::ID_ORDERED} then order_date
+          when #{Businessstatus::ID_SHIPPING_PREPARATION} then allocated_date
+          when #{Businessstatus::ID_SHIPPED} then shipped_date
+          when #{Businessstatus::ID_RETURNED} then returning_date
+          else updated_at
+          end) desc"
+      )
+    end
+
+    @engineorders = @engineorders.paginate(page: params[:page], per_page: 10)
     adjust_page(@engineorders)
-
-
   end
 
   # GET /engineorders/1
