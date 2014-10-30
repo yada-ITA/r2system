@@ -59,10 +59,12 @@
         <td><%= number_with_delimiter(repair.purachase_price) %></td>
       <% if current_user.yesOffice? || current_user.systemAdmin? %>
         <td class="workregist">
-          <%= link_to '振替', edit_charge_path(repair.charge) %>
-        </td>
-        <td class="workregist">
-          <%= link_to '取消', edit_charge_path(repair.charge) %>
+          <% if  @searched["charge_flg"] == "before" %> 
+            <%= link_to '振替', edit_charge_path(repair.charge) %>
+          <% else %>
+            <%= link_to '戻し', undo_charge_path(repair.charge) , style: "color:red;", confirm: "振替を取り消します、よろしいですか？" %>
+          <% end %>
+
         </td>
       <% end %>
       </tr>

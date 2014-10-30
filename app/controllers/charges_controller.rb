@@ -1,7 +1,7 @@
 class ChargesController < ApplicationController
   before_action :set_charge, only: [:show, :edit, :update, :destroy]
   after_action :anchor!, only: [:index]
-  after_action :keep_anchor!, only: [:show, :new, :edit, :create, :update]
+  after_action :keep_anchor!, only: [:show, :new, :edit, :create, :update, :undo_charge]
 
 
   # GET /charges
@@ -69,6 +69,23 @@ class ChargesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  # PATCH/PUT /charges/1
+  # PATCH/PUT /charges/1.json
+  def undo_charge
+    set_charge
+    respond_to do |format|
+      if @charge.undo_charge
+        format.html { redirect_to @charge, notice: 'Charge was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @charge.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
