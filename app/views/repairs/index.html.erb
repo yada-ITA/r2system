@@ -95,7 +95,7 @@
 
           </td>
           <td class="workregist">
-            <% unless (repair.engine.finished_repair? or repair.engine.before_shipping? or repair.engine.after_shipped?) %>
+            <% unless (repair.engine.finished_repair? or repair.engine.before_shipping? or repair.engine.after_shipped? or repair.engine.before_arrive?) %>
             <%= link_to '依頼', order_repair_path(repair) , class: "workregist_work" %>
             <% end %>
           </td>

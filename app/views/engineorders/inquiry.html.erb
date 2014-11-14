@@ -99,7 +99,7 @@
       <table>
         <tr>
           <td><%= Engine.human_attribute_name "engine_model_name" %></td>
-          <td><%= engine_form.collection_select :engine_model_name, Enginemodel.all, :modelcode, :name, include_blank: true %></td>
+          <td><%= engine_form.collection_select :engine_model_name, Enginemodel.all, :modelcode, :modelcode, include_blank: true %></td>
         </tr>
         <tr>
           <td><%= Engine.human_attribute_name "serialno" %></td>
@@ -112,8 +112,7 @@
   <!-- 運転時間 -->
   <div class="field">
     <%= f.label :time_of_running, class: "need-label" %><br>
-    <%= f.text_field :time_of_running, :value=>number_with_delimiter(@engineorder.time_of_running), style: "ime-mode:disabled;",
-                     onkeyup: raw("if (/\\D/g.test(this.value)) this.value = this.value.replace(/\\D/g, '')") %>
+    <%= f.text_field :time_of_running, :value=>number_with_delimiter(@engineorder.time_of_running), style: "ime-mode:disabled;" %>
   </div>
 
   <!-- 試運転日 -->

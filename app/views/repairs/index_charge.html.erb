@@ -33,6 +33,7 @@
       <th>拠点</th>
       <% end %>
       <th><%= Repair.human_attribute_name(:order_no) %></th>
+      <th><%= Engineorder.human_attribute_name(:directive_no) %></th>
       <th><%= Charge.human_attribute_name(:charge_date) %></th>
       <th><%= Engine.human_attribute_name(:engine_model_name) %></th>
       <th><%= Engine.human_attribute_name(:serialno) %></th>
@@ -52,6 +53,7 @@
         <td><%= Company.find(repair.engine.company_id).name %></td>
       <% end %>
         <td><%= repair.order_no %></td>
+        <td><%= repair.engine.current_order_as_new.directive_no %></td>
         <td><%= repair.charge.charge_date %></td>
         <td><%= repair.engine.engine_model_name %></td>
         <td><%= repair.engine.serialno %></td>

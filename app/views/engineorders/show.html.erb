@@ -20,11 +20,15 @@
     <%= @engineorder.issue_no %>
   </div>
 
+  <div class="field">
+   <%= Engineorder.human_attribute_name('directive_no') %>：
+    <%= @engineorder.directive_no %>
+  </div>
 
  <div class="field">
    <%= Engineorder.human_attribute_name('title') %>：
   <%= @engineorder.title %>
-</div>
+ </div>
 
 <div class="field">
   <%= Engineorder.human_attribute_name('businessstatus_id') %>：

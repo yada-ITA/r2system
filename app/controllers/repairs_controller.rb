@@ -163,9 +163,9 @@ class RepairsController < ApplicationController
         # もし整備依頼の場合は、その整備会社のユーザに整備依頼メールを送信する。
         if params[:commit] == t('views.buttun_repairOrdered')
            #メールを送信するのは、本番環境(production)の場合のみ
-           if Rails.env.production?
+           #if Rails.env.production?
              R2mailer.sendRepairOrderMail(User.collect_emails_by_company(@repair.engine.company), @repair, current_user).deliver
-           end
+           #end
         end
 
 		    @repair.engine.save

@@ -39,7 +39,7 @@ R2::Application.configure do
 
   # gmail用の定義
   #config.action_mailer.smtp_settings = {
-  #  :address => 'smtp.gmail.com',
+    #:address => 'smtp.gmail.com',
   #  :port => 587,
   #  :domain => 'localhost',
   #  :authentication => :login,
@@ -49,12 +49,13 @@ R2::Application.configure do
 
   # ローカルテスト用の定義
   config.action_mailer.smtp_settings = {
-    :address => ENV['MAIL_ADDRESS'],
-    :port => 25,
-    :domain => 'localhost',
-    :authentication => :login,
-    :user_name => ENV['MAIL_USER'],
-    :password  => ENV['MAIL_PASSWORD']
+    :enable_starttls_auto => true,
+    :address => 'ymr12.local.yanmar.co.jp',
+    :port => '25',
+    :domain => 'r2system.co.jp',
+    #:authentication => :login,
+    #:user_name => ENV['MAIL_USER'],
+    #:password  => ENV['MAIL_PASSWORD']
     }
   
   
