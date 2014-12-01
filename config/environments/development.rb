@@ -49,13 +49,12 @@ R2::Application.configure do
 
   # ローカルテスト用の定義
   config.action_mailer.smtp_settings = {
-    :enable_starttls_auto => true,
-    :address => 'ymr12.local.yanmar.co.jp',
-    :port => '25',
-    :domain => 'r2system.co.jp',
-    #:authentication => :login,
-    #:user_name => ENV['MAIL_USER'],
-    #:password  => ENV['MAIL_PASSWORD']
+    :address => ENV['MAIL_ADDRESS'],
+    :port => 25,
+    :domain => 'localhost',
+    :authentication => :login,
+    :user_name => ENV['MAIL_USER'],
+    :password  => ENV['MAIL_PASSWORD']
     }
   
   

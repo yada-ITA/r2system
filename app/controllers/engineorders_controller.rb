@@ -258,17 +258,33 @@ class EngineordersController < ApplicationController
      # 受注登録の場合、本社担当者全員にメールを送信する。
         if params[:commit] == t('views.buttun_ordered')
            #メールを送信するのは、本番環境(production)の場合のみ
-           #if Rails.env.production?
+           if Rails.env.production?
              R2orderm.r2orderm(User.collect_emails_by_company(1), @engineorder, current_user).deliver
-           #end
+           end
         end
         # 引当登録の場合、拠点の引合担当者にメールを送信する。
         if params[:commit] == t('views.buttun_allocated')
            #メールを送信するのは、本番環境(production)の場合のみ
-           #if Rails.env.production?
+           if Rails.env.production?
              R2eoallocatem.sendeoallocatemail(User.collect_emails_by_company(@engineorder.branch_id), @engineorder, current_user).deliver
-              R2eoallocatem.sendeoallocatemail(User.collect_emails_by_company(2), @engineorder, current_user).deliver
-           #end
+             R2eoallocatem.sendeoallocatemail(User.collect_emails_by_company(26), @engineorder, current_user).deliver
+           end
+        end
+        # 出荷登録の場合、拠点の引合担当者及び本社R2システム担当者にメールを送信する。
+        if params[:commit] == t('views.buttun_shipped')
+           #メールを送信するのは、本番環境(production)の場合のみ
+           if Rails.env.production?
+             R2eoshipm.sendeoshipmail(User.collect_emails_by_company(@engineorder.branch_id), @engineorder, current_user).deliver
+             R2eoshipm.sendeoshipmail(User.collect_emails_by_company(1), @engineorder, current_user).deliver
+           end
+        end
+       # 返却登録の場合、拠点の引合担当者及び本社R2システム担当者にメールを送信する。
+        if params[:commit] == t('views.buttun_returning')
+           #メールを送信するのは、本番環境(production)の場合のみ
+           if Rails.env.production?
+             R2eoreturnm.sendeoreturnmail(User.collect_emails_by_company(@engineorder.branch_id), @engineorder, current_user).deliver
+             R2eoreturnm.sendeoreturnmail(User.collect_emails_by_company(@engineorder.returning_place_id), @engineorder, current_user).deliver
+           end
         end
 
 end

@@ -1,6 +1,6 @@
 # coding: utf-8
 class R2orderm < ActionMailer::Base
-  default from: "R2system@r2.local"
+  default from: "yescsr2@gmail.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -16,7 +16,7 @@ class R2orderm < ActionMailer::Base
 
     @engineorder = engineorder
 
-    mail to: emails, subject: "【TEST】R2システムからの受注登録通知です！【TEST】"
+    mail to: emails, subject: "【重要】R2システムからの受注登録通知です！"
 
     return self
 

@@ -1,0 +1,33 @@
+<% companyinfo = Company.find(@user.company_id) %>
+<%= Company.find(@engineorder.returning_place_id).name %>　御中
+ ご担当者様
+
+  ヤンマーエネルギーシステム株式会社 <%= companyinfo.name %> 
+   R2システム担当者殿
+
+毎度お世話になり誠にありがとうございます。
+ヤンマーエネルギーシステム株式会社 <%= companyinfo.name %>です。
+
+Ｒ２システムの返却登録が完了しましたのでご連絡いたします。
+ 
+  ※依頼No：<%= Repair.find_by(:engine_id => @engineorder.new_engine_id).issue_no unless @engineorder.new_engine_id.nil?%>
+  ※工事名称： <%= @engineorder.title %>
+  ※設置先名： <%= Place.find(@engineorder.install_place_id).name unless @engineorder.install_place_id.nil? %>
+
+  ※返却エンジン型式： <%= Engine.find(@engineorder.old_engine_id).engine_model_name unless @engineorder.old_engine_id.nil?%>
+  ※返却エンジンNo.： <%= '('+Engine.find(@engineorder.old_engine_id).serialno+')'  unless @engineorder.old_engine_id.nil?%>
+  ※返却日： <%= @engineorder.returning_date %>
+  ※送り状No： <%= @engineorder.invoice_no_old %>
+
+
+ご確認の上、<%= Company.find(@engineorder.returning_place_id).name %>様は受領頂けます様お願い致します。
+ ※ Ｒ２システムリンク ： http://r2system.herokuapp.com/repairs
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+<%= companyinfo.name %> 
+
+〒 <%= companyinfo.postcode %> 
+ <%= companyinfo.address %> 
+ TEL:<%= companyinfo.phone_no%>
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーー

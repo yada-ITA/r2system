@@ -1,6 +1,6 @@
 # coding: utf-8
 class R2eoallocatem < ActionMailer::Base
-  default from: "R2system@r2.local"
+  default from: "yescsr2@gmail.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:

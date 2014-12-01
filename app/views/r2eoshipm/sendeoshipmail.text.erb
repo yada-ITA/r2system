@@ -1,3 +1,41 @@
-R2eoshipm#sendeoshipmail
+<% companyinfo = Company.find(@user.company_id) %>
+ヤンマーエネルギーシステム株式会社 <%= Company.find(@engineorder.branch_id).name %>
+ R2システム担当者様
 
-<%= @greeting %>, find me in app/views/app/views/r2eoshipm/sendeoshipmail.text.erb
+ヤンマーエネルギーシステム株式会社 CS部
+ R2システム担当者様
+
+毎度お世話になり誠にありがとうございます。
+<%= companyinfo.name %> です。 
+Ｒ２システムの出荷登録が完了しましたのでご連絡いたします。
+ 
+  ※発行No. <%= @engineorder.issue_no %>
+  ※工事名称： <%= @engineorder.title %>
+  ※設置先名： <%= Place.find(@engineorder.install_place_id).name unless @engineorder.install_place_id.nil? %>
+
+  ※返却エンジン型式： <%= Engine.find(@engineorder.old_engine_id).engine_model_name unless @engineorder.old_engine_id.nil?%>
+  ※返却エンジンNo.： <%= '('+Engine.find(@engineorder.old_engine_id).serialno+')'  unless @engineorder.old_engine_id.nil?%>
+
+  ※新規エンジンNo.： <%= '('+Engine.find(@engineorder.new_engine_id).serialno+')'  unless @engineorder.old_engine_id.nil?%>
+  ※依頼No：<%= Repair.find_by(:engine_id => @engineorder.new_engine_id).issue_no unless @engineorder.new_engine_id.nil?%>
+
+  ※希望納期： <%= @engineorder.desirable_delivery_date %>
+
+  ※出荷日： <%= @engineorder.shipped_date %>
+  ※送り状No： <%= @engineorder.invoice_no_new %>
+
+ 
+ご確認の上、整備会社様は出荷対応頂けます様お願い致します。
+下記リンクよりログインいただけます。
+
+ ※ Ｒ２システムリンク ： http://r2system.herokuapp.com/engineorders
+
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+<%= companyinfo.name %> 
+
+〒 <%= companyinfo.postcode %> 
+ <%= companyinfo.address %> 
+ TEL:<%= companyinfo.phone_no%>
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
