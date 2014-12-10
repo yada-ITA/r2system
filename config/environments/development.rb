@@ -39,7 +39,7 @@ R2::Application.configure do
 
   # gmail用の定義
   #config.action_mailer.smtp_settings = {
-  #  :address => 'smtp.gmail.com',
+    #:address => 'smtp.gmail.com',
   #  :port => 587,
   #  :domain => 'localhost',
   #  :authentication => :login,

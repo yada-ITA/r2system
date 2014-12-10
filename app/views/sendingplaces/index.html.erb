@@ -28,9 +28,11 @@
         <td><%= sendingplace.name %></td>
         <td><%= sendingplace.destination_name %></td>
         <td><%= sendingplace.phone_no %></td>
+        <% if current_user.yesBranch? %>
         <td><%= link_to '詳細', sendingplace, class: "workregist_show"   %></td>
         <td><%= link_to '編集', edit_sendingplace_path(sendingplace), class: "workregist_edit"   %></td>
         <td><%= link_to '削除', sendingplace, method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: "workregist_del"   %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -138,8 +138,10 @@ class Repair < ActiveRecord::Base
 
   #purachase_priceを'カンマ'をとった状態でオーバーライトする
   def purachase_price=(value)
+    require 'nkf'
     if value
-      self[:purachase_price] = value.gsub(/,/, '')
+      pphalf = NKF.nkf('-m0Z1 -w', value)
+      self[:purachase_price] = pphalf.gsub(/[^0-9]/, '')
     else
       self[:purachase_price] = nil
     end

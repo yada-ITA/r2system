@@ -254,7 +254,40 @@ class EngineordersController < ApplicationController
         format.json { render json: @engineorder.errors, status: :unprocessable_entity }
       end
     end
-  end
+     #メール送信処理
+     # 受注登録の場合、本社担当者全員にメールを送信する。
+        if params[:commit] == t('views.buttun_ordered')
+           #メールを送信するのは、本番環境(production)の場合のみ
+           if Rails.env.production?
+             R2orderm.r2orderm(User.collect_emails_by_company(1), @engineorder, current_user).deliver
+           end
+        end
+        # 引当登録の場合、拠点の引合担当者にメールを送信する。
+        if params[:commit] == t('views.buttun_allocated')
+           #メールを送信するのは、本番環境(production)の場合のみ
+           if Rails.env.production?
+             R2eoallocatem.sendeoallocatemail(User.collect_emails_by_company(@engineorder.branch_id), @engineorder, current_user).deliver
+             R2eoallocatem.sendeoallocatemail(User.collect_emails_by_company(26), @engineorder, current_user).deliver
+           end
+        end
+        # 出荷登録の場合、拠点の引合担当者及び本社R2システム担当者にメールを送信する。
+        if params[:commit] == t('views.buttun_shipped')
+           #メールを送信するのは、本番環境(production)の場合のみ
+           if Rails.env.production?
+             R2eoshipm.sendeoshipmail(User.collect_emails_by_company(@engineorder.branch_id), @engineorder, current_user).deliver
+             R2eoshipm.sendeoshipmail(User.collect_emails_by_company(1), @engineorder, current_user).deliver
+           end
+        end
+       # 返却登録の場合、拠点の引合担当者及び本社R2システム担当者にメールを送信する。
+        if params[:commit] == t('views.buttun_returning')
+           #メールを送信するのは、本番環境(production)の場合のみ
+           if Rails.env.production?
+             R2eoreturnm.sendeoreturnmail(User.collect_emails_by_company(@engineorder.branch_id), @engineorder, current_user).deliver
+             R2eoreturnm.sendeoreturnmail(User.collect_emails_by_company(@engineorder.returning_place_id), @engineorder, current_user).deliver
+           end
+        end
+
+end
 
   # DELETE /engineorders/1
   # DELETE /engineorders/1.json
@@ -606,8 +639,8 @@ class EngineordersController < ApplicationController
       :sending_comment, :desirable_delivery_date, :businessstatus_id,
       :new_engine_id, :old_engine_id,
       :enginestatus_id,:invoice_no_new, :invoice_no_old, :day_of_test,
-      :shipped_date, :shipped_comment, :returning_date, :returning_comment, :title,
-      :returning_place_id, :allocated_date, :sales_amount, :sending_place_m_id,
+      :shipped_date, :shipped_comment, :returning_date, :returning_comment, :title, :inq_lank,
+      :returning_place_id, :allocated_date, :sales_amount, :sending_place_m_id, :directive_no,
       :install_place_attributes => [:id,:install_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy],
       :sending_place_attributes => [:id,:sending_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy, :company_id],
       :old_engine_attributes => [:id, :engine_model_name, :serialno],

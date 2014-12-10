@@ -1,0 +1,39 @@
+<% companyinfo = Company.find(@user.company_id) %>
+
+<%= Company.find(Engine.find(@engineorder.new_engine_id).company_id).name %>　御中
+ご担当者様
+
+  ヤンマーエネルギーシステム株式会社　<%= Company.find(@engineorder.branch_id).name %>
+  担当者殿
+
+
+毎度お世話になり誠にありがとうございます。
+ヤンマーエネルギーシステム㈱  担当<%= @user.name %>です。
+ 
+Ｒ２システムに引当登録を致しましたのでご連絡致します。
+ 
+  ※発行No. <%= @engineorder.issue_no %>
+  ※工事名称： <%= @engineorder.title %>
+  ※設置先名： <%= Place.find(@engineorder.install_place_id).name unless @engineorder.install_place_id.nil? %>
+
+  ※返却エンジン型式： <%= Engine.find(@engineorder.old_engine_id).engine_model_name unless @engineorder.old_engine_id.nil?%>
+  ※返却エンジンNo.： <%= '('+Engine.find(@engineorder.old_engine_id).serialno+')'  unless @engineorder.old_engine_id.nil?%>
+
+  ※新規エンジンNo.： <%= '('+Engine.find(@engineorder.new_engine_id).serialno+')'  unless @engineorder.old_engine_id.nil?%>
+  ※依頼No：<%= Repair.find_by(:engine_id => @engineorder.new_engine_id).issue_no unless @engineorder.new_engine_id.nil?%>
+
+  ※希望納期： <%= @engineorder.desirable_delivery_date %>
+
+ 
+  ご確認の上、整備会社様は出荷対応頂けます様お願い致します。
+  下記リンクよりログインいただけます。
+
+  ※ Ｒ２システムリンク ： http://r2system.herokuapp.com/engineorders
+
+
+□ヤンマーエネルギーシステム.R2システム------
+このシステムに関するお問い合わせ。
+本社ヘルプデスク　06-6451-7838
+受付時間：9:00～12:15　13:00～17:45
+
+---------------------------------------------
