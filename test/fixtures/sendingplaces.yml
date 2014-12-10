@@ -15,3 +15,11 @@ two:
   address: MyString
   phone_no: MyString
   destination_name: MyString
+
+sendingplace2:
+  branch: company8
+  name: 西宮戎リペア
+  postcode: 123-4567
+  address: 兵庫県西宮市戎西町
+  phone_no: 06-6123-4567
+  destination_name: 恵比寿様

@@ -59,7 +59,7 @@
   </td>
 
   <td  rowspan="2" class="workregist" >
-    <% if engineorder.shipped? || engineorder.returned? %>
+    <% if engineorder.shipped? %>
      <% if current_user.yesOffice? || current_user.systemAdmin? || myBranch %>
         <%= link_to t("views.link_returning"), returning_path(engineorder), class: "workregist_work" %>
       <% else %>

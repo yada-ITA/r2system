@@ -61,12 +61,6 @@ class EngineordersController < ApplicationController
       cond.push(arel[:old_engine_id].in engineid)
     end
 
-   # ビジネスステータス（ステータス）
-    if businessstatus_id = @searched[:businessstatus_id]
-      cond.push(arel[:businessstatus_id].eq businessstatus_id)
-    end
-
-
  #検索条件統一化のため一旦コメントアウト
     #工事名称
       #if title = @searched[:title]
@@ -97,10 +91,49 @@ class EngineordersController < ApplicationController
 
     #end 
   
-    @engineorders = Engineorder.where(cond.reduce(&:and)).order(:updated_at).paginate(page: params[:page], per_page: 10)
+    @engineorders = Engineorder.where(cond.reduce(&:and))
+    case @searched[:businessstatus_id]
+    when Businessstatus::ID_INQUIRY.to_s
+      # ステータス == 引合 指定で検索した場合、引合日の降順でソート
+      @engineorders = @engineorders.where(status: Businessstatus.of_inquiry)
+                                   .order(:inquiry_date => :desc)
+    when Businessstatus::ID_ORDERED.to_s
+      # ステータス == 受注 指定で検索した場合、受注日の降順でソート
+      @engineorders = @engineorders.where(status: Businessstatus.of_ordered)
+                                   .order(:order_date => :desc)
+    when Businessstatus::ID_SHIPPING_PREPARATION.to_s
+      # ステータス == 出荷準備中 指定で検索した場合、引当日の降順でソート
+      @engineorders = @engineorders.where(status: Businessstatus.of_shipping_preparation)
+                                   .order(:allocated_date => :desc)
+    when Businessstatus::ID_SHIPPED.to_s
+      # ステータス == 出荷済 指定で検索した場合、出荷日の降順でソート
+      @engineorders = @engineorders.where(status: Businessstatus.of_shipped)
+                                   .order(:shipped_date => :desc)
+    when Businessstatus::ID_RETURNED.to_s
+      # ステータス == 返却済 指定で検索した場合、返却日の降順でソート
+      @engineorders = @engineorders.where(status: Businessstatus.of_returned)
+                                   .order(:returning_date => :desc)
+    when Businessstatus::ID_CANCELED.to_s
+      # ステータス == キャンセル 指定で検索した場合、最終レコード更新日の降順でソート
+      # (キャンセル時にレコード更新するので updated_at がキャンセル日になるはず)
+      @engineorders = @engineorders.where(status: Businessstatus.of_canceled)
+                                   .order(:updated_at => :desc)
+    else
+      @engineorders = Engineorder.order(
+        "businessstatus_id asc,
+         (case businessstatus_id
+          when #{Businessstatus::ID_INQUIRY} then inquiry_date
+          when #{Businessstatus::ID_ORDERED} then order_date
+          when #{Businessstatus::ID_SHIPPING_PREPARATION} then allocated_date
+          when #{Businessstatus::ID_SHIPPED} then shipped_date
+          when #{Businessstatus::ID_RETURNED} then returning_date
+          else updated_at
+          end) desc"
+      )
+    end
+
+    @engineorders = @engineorders.paginate(page: params[:page], per_page: 10)
     adjust_page(@engineorders)
-
-
   end
 
   # GET /engineorders/1
@@ -221,7 +254,40 @@ class EngineordersController < ApplicationController
         format.json { render json: @engineorder.errors, status: :unprocessable_entity }
       end
     end
-  end
+     #メール送信処理
+     # 受注登録の場合、本社担当者全員にメールを送信する。
+        if params[:commit] == t('views.buttun_ordered')
+           #メールを送信するのは、本番環境(production)の場合のみ
+           if Rails.env.production?
+             R2orderm.r2orderm(User.collect_emails_by_company(1), @engineorder, current_user).deliver
+           end
+        end
+        # 引当登録の場合、拠点の引合担当者にメールを送信する。
+        if params[:commit] == t('views.buttun_allocated')
+           #メールを送信するのは、本番環境(production)の場合のみ
+           if Rails.env.production?
+             R2eoallocatem.sendeoallocatemail(User.collect_emails_by_company(@engineorder.branch_id), @engineorder, current_user).deliver
+             R2eoallocatem.sendeoallocatemail(User.collect_emails_by_company(26), @engineorder, current_user).deliver
+           end
+        end
+        # 出荷登録の場合、拠点の引合担当者及び本社R2システム担当者にメールを送信する。
+        if params[:commit] == t('views.buttun_shipped')
+           #メールを送信するのは、本番環境(production)の場合のみ
+           if Rails.env.production?
+             R2eoshipm.sendeoshipmail(User.collect_emails_by_company(@engineorder.branch_id), @engineorder, current_user).deliver
+             R2eoshipm.sendeoshipmail(User.collect_emails_by_company(1), @engineorder, current_user).deliver
+           end
+        end
+       # 返却登録の場合、拠点の引合担当者及び本社R2システム担当者にメールを送信する。
+        if params[:commit] == t('views.buttun_returning')
+           #メールを送信するのは、本番環境(production)の場合のみ
+           if Rails.env.production?
+             R2eoreturnm.sendeoreturnmail(User.collect_emails_by_company(@engineorder.branch_id), @engineorder, current_user).deliver
+             R2eoreturnm.sendeoreturnmail(User.collect_emails_by_company(@engineorder.returning_place_id), @engineorder, current_user).deliver
+           end
+        end
+
+end
 
   # DELETE /engineorders/1
   # DELETE /engineorders/1.json
@@ -573,8 +639,8 @@ class EngineordersController < ApplicationController
       :sending_comment, :desirable_delivery_date, :businessstatus_id,
       :new_engine_id, :old_engine_id,
       :enginestatus_id,:invoice_no_new, :invoice_no_old, :day_of_test,
-      :shipped_date, :shipped_comment, :returning_date, :returning_comment, :title,
-      :returning_place_id, :allocated_date, :sales_amount, :sending_place_m_id,
+      :shipped_date, :shipped_comment, :returning_date, :returning_comment, :title, :inq_lank,
+      :returning_place_id, :allocated_date, :sales_amount, :sending_place_m_id, :directive_no,
       :install_place_attributes => [:id,:install_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy],
       :sending_place_attributes => [:id,:sending_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy, :company_id],
       :old_engine_attributes => [:id, :engine_model_name, :serialno],

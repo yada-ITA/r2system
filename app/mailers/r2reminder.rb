@@ -1,6 +1,6 @@
 #coding: UTF-8
 class R2reminder < ActionMailer::Base
-  default from: "yescsr2@gmail.com"
+  default from: "csr2yes@gmail.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -11,7 +11,7 @@ class R2reminder < ActionMailer::Base
 
     @user = user
 
-    mail to: "yescsr2@gmail.com" , subject: "【R2システム】当月分のご請求書の発行について" , bcc: user.email
+    mail to: "csr2yes@gmail.com" , subject: "【R2システム】当月分のご請求書の発行について" , bcc: user.email
 
     return self
     

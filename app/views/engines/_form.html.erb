@@ -31,6 +31,11 @@
   <div><%= f.label :status %><br>
     <%= f.collection_select( :enginestatus_id, Enginestatus.where(name: "受領前"), :id, :name ) %><br><br>
   </div>
+  <% elsif from_disp == "edit" %>
+  <div><%= f.label :status %><br>
+    <%= f.collection_select( :enginestatus_id, Enginestatus.all, :id, :name, :include_blank => false ) %>
+    <%= f.label "「ステータス変更時は、システムが正常に動作しなくなる可能性があります！十分にご注意ください！」" , :style=>"color:red;" %> <br><br>
+  </div>
   <% else %>
   <div><%= f.label :status %><br>
     <%= f.collection_select( :enginestatus_id, Enginestatus.all, :id, :name, :include_blank => false ) %><br><br>

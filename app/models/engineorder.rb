@@ -26,7 +26,6 @@ class Engineorder < ActiveRecord::Base
   # 場所（送付先マスタ）
   belongs_to :sending_place_m,   :class_name => 'Sendingplace' , foreign_key: 'sending_place_m_id'
 
-
   belongs_to :registered_user, :class_name => 'User' 
   belongs_to :updated_user, :class_name => 'User' 
   belongs_to :salesman, :class_name => 'User' 
@@ -101,11 +100,6 @@ class Engineorder < ActiveRecord::Base
       if sending_place.phone_no.blank?
         sending_place.errors.add_on_blank(:phone_no)
         errors.add("sending_place.phone_no", "を入力してください")
-      end
-      # 送付先 - 宛名
-      if sending_place.destination_name.blank?
-        sending_place.errors.add_on_blank(:destination_name)
-        errors.add("sending_place.destination_name", "を入力してください")
       end
     end
     # 売上金額 (見込み)
@@ -450,18 +444,23 @@ class Engineorder < ActiveRecord::Base
     end
   end
 
-  #sales_amountの値を'カンマ'をとった状態でオーバーライトする
+  #sales_amountの値を半角数字カンマ区切りでオーバーライトする
   def sales_amount=(value)
-    #self[:sales_amount] = value.gsub(/,/, '')
+    require 'nkf'
     if value
-      self[:sales_amount] = value.gsub(/,/, '')
+      sahalf = NKF.nkf('-m0Z1 -w', value)
+      self[:sales_amount] = sahalf.gsub(/[^0-9]/, '')
     else
       self[:sales_amount] = nil
     end
   end
+
+#time_of_runningの値を半角数字カンマ区切りでオーバーライトする
   def time_of_running=(value)
+    require 'nkf'
     if value
-      self[:time_of_running] = value.gsub(/,/, '')
+      torhalf = NKF.nkf('-m0Z1 -w', value)
+      self[:time_of_running] = torhalf.gsub(/[^0-9]/, '')
     else
       self[:time_of_running] = nil
     end
