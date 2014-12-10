@@ -639,7 +639,7 @@ end
       :sending_comment, :desirable_delivery_date, :businessstatus_id,
       :new_engine_id, :old_engine_id,
       :enginestatus_id,:invoice_no_new, :invoice_no_old, :day_of_test,
-      :shipped_date, :shipped_comment, :returning_date, :returning_comment, :title,
+      :shipped_date, :shipped_comment, :returning_date, :returning_comment, :title, :inq_lank,
       :returning_place_id, :allocated_date, :sales_amount, :sending_place_m_id, :directive_no,
       :install_place_attributes => [:id,:install_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy],
       :sending_place_attributes => [:id,:sending_place_id, :name, :category, :postcode, :address, :phone_no, :destination_name, :_destroy, :company_id],

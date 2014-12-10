@@ -1,6 +1,6 @@
 # coding: utf-8
 class R2eoreturnm < ActionMailer::Base
-   default from: "yescsr2@gmail.com"
+   default from: "csr2yes@gmail.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
