@@ -75,6 +75,6 @@ class SendingplacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sendingplace_params
-      params.require(:sendingplace).permit(:branch_id, :name, :postcode, :address, :phone_no, :destination_name)
+      params.require(:sendingplace).permit(:branch_id, :name, :postcode, :address, :phone_no, :destination_name, :name_kana)
     end
 end

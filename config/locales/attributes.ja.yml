@@ -127,6 +127,7 @@ ja:
         content: 本文
       sendingplace:
         name: 送付先名
+        name_kana: 送付先名（かな）
         postcode: 郵便番号
         address: 住所
         phone_no: 電話番号

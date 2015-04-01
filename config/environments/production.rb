@@ -89,10 +89,14 @@ R2::Application.configure do
   config.action_mailer.smtp_settings = {
     :address => 'smtp.gmail.com',
     :port => 587,
-    :domain => 'localhost',
+    :domain => 'localhost:3000',
     :authentication => :login,
     :user_name => ENV['MAIL_USER'],
     :password  => ENV['MAIL_PASSWORD']
+    #:user_name => "csr2yes@gmail.com",
+    #:password  => 'Ibies8246',
+    #:authentication => "plain",
+    #:enable_starttls_auto => true
     }
 
 end
