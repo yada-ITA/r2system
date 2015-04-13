@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   # 会社を指定して、その会社のユーザのアドレスを全て;つながりで返す。
   def self.collect_emails_by_company(company)
     emails = ""
-    users = self.where(:company => company)
+    users = self.where(:company_id => company)
     users.each do | user |
       emails = emails + user.email + ';'
     end
@@ -60,6 +60,16 @@ class User < ActiveRecord::Base
    company_list = Company.where(:category => "整備会社").pluck(:id)
    user_list = self.where(company_id: company_list)
    return user_list
+  end
+
+   # 引合担当者のアドレスを取得する。
+  def self.collect_smanemail(salesmanm)
+   smanmail = ""
+    users = self.where(:id => salesmanm)
+    users.each do | user |
+      smanmail = smanmail + user.email + ';'
+    end
+    return smanmail
   end
 
 end

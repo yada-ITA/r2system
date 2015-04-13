@@ -1,3 +1,30 @@
-R2orderm#r2orderm
+<% companyinfo = Company.find(@user.company_id) %>
+R2システムからの受注登録通知です！
 
-<%= @greeting %>, find me in app/views/app/views/r2orderm/r2orderm.text.erb
+受注拠点
+<%= companyinfo.name %>
+
+担当者
+<%= @user.name %>
+
+受注内容
+ 
+  ※発行No. <%= @engineorder.issue_no %>
+  ※工事名称： <%= @engineorder.title %>
+  ※設置先名： <%= Place.find(@engineorder.install_place_id).name unless @engineorder.install_place_id.nil? %>
+  ※返却エンジン型式： <%= Engine.find(@engineorder.old_engine_id).engine_model_name unless @engineorder.old_engine_id.nil?%>
+  ※返却エンジンNo.： <%= '('+Engine.find(@engineorder.old_engine_id).serialno+')'  unless @engineorder.old_engine_id.nil?%>
+  ※希望納期： <%= @engineorder.desirable_delivery_date %>
+
+下記リンクよりR2システムにログインの上、引当処理を実施してください。
+
+ 
+  ※ Ｒ２システムリンク ： http://r2system.herokuapp.com/engineorders
+
+
+---YES　R2システム-------------------------
+このシステムに関するお問い合わせ。
+本社ヘルプデスク　06-7636-2101
+受付時間：9:00～12:15　13:00～17:45
+-----------------------------------------------
+　

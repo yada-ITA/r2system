@@ -82,6 +82,7 @@ ja:
         shipped_date: 出荷日
         shipped_comment: 出荷コメント
         title: 工事名称
+        directive_no: 工事No
         returning_date: 返却日 
         returning_comment: 返却コメント
         invoice_no_new: 送り状No（新エンジン）
@@ -126,6 +127,7 @@ ja:
         content: 本文
       sendingplace:
         name: 送付先名
+        name_kana: 送付先名（かな）
         postcode: 郵便番号
         address: 住所
         phone_no: 電話番号
